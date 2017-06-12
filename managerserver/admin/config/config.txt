@@ -1,0 +1,6 @@
+[session]
+#Backup config
+Time_interval=
+Need_backup=0
+#transfer config
+Password=echo22

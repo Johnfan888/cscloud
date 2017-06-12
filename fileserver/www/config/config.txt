@@ -1,0 +1,6 @@
+ServerIP=
+ServerID=1
+ManagerServerIP=
+UserFilePath=
+Post_size=
+Configserver=
