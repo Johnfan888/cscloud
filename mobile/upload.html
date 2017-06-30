@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>Hello H5+</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<scripttype="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+			var server="http://192.168.1.167/csCloud/upload/upload/upload.php";
+			var mulfiles=[];
+			// 上传文件
+			function upload(){
+				if(mulfiles.length<=0){
+					plus.nativeUI.alert("没有添加上传文件！");
+					return;
+				}
+				console.log("开始上传：")
+				 task=plus.uploader.createUpload(server,
+					{method:"POST"},
+					function(t,status){ //上传完成
+						if(status==200){
+							console.log("上传成功："+t.responseText);
+							clearInterval(i);
+							plus.storage.setItem("uploader",t.responseText);
+						}else{
+							console.log("上传失败："+status+t.responseText);
+						}
+					}
+				);
+				task.addData("client","CSloud");
+				task.addData("uid",getUid());
+				for(var i=0;i<mulfiles.length;i++){
+					var f=mulfiles[i];
+					task.addFile(f.path,{key:f.name});
+					console.log(f.path);
+				}
+				  	var i = setInterval(function() {
+			        var totalSize = task.totalSize;
+			        var UploadedSize = task.uploadedSize;
+			        var progress = document.getElementById('progress');
+			        var sum = parseInt(UploadedSize)/parseInt(totalSize)*100       
+			        progress.setAttribute('value',sum);
+			       // console.log(sum);
+			        //console.log(task.totalSize);
+			      }, 100); //1000为1秒钟
+				task.start();		
+			}
+			function pause(){
+				task.pause();
+			}
+			function resume(){
+				task.resume();
+			}
+			// 拍照添加文件
+			function appendByCamera(){
+				plus.camera.getCamera().captureImage(function(p){
+					appendFile(p);
+				});	
+			}
+			// 从相册添加文件
+			function appendByGallery(){
+				plus.gallery.pick(function(e){
+			    	for(var i in e.files){
+				    	appendFile(e.files[i]);
+			    	}
+			    }, function ( e ) {
+			    	console.log( "取消选择图片" );
+			    },{filter:"none",multiple:true});
+			    //progress.classList.remove("progress_hide");
+			}
+			// 添加文件
+			var index=1;
+			function appendFile(p){
+				var fe=document.getElementById("files");
+				var li=document.createElement("li");
+				var n=p.substr(p.lastIndexOf('/')+1);
+				li.innerText=n;
+				fe.appendChild(li);
+				mulfiles.push({name:"uploadkey"+index,path:p});
+				index++;
+				empty.style.display="none";
+			}
+			// 产生一个随机数
+			function getUid(){
+				return Math.floor(Math.random()*100000000+10000000).toString();
+			}
+		</script>
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		<header id="header">
+			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvtt">文件上传</div>
+		</header>
+		<div id="dcontent" class="mui-content">
+			<div class="mui-content-padded mui-scroll">
+				<br/>
+				<p class="heading">上传文件列表：</p>
+				<ul id="files" style="text-align:left;">
+					<p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+				</ul>
+				<table>
+					<tbody>
+						<tr >
+							<td colspan="2">上传进度<progress id="progress" style="margin-left:30px;margin-bottom: -3px;" value="0" max="100"></progress></td> 
+						</tr>
+						<tr>
+							<td style="width:40%"><div class="button button-select" onclick="appendByCamera()">拍照</div></td>
+							<td style="width:40%"><div class="button button-select" onclick="appendByGallery()">相册选取</div></td>
+						</tr>
+					</tbody>
+				</table>
+				<br/>
+				<div class="button" onclick="upload();">上 传</div>
+				<div class="button" onclick="pause();">暂 停</div>
+				<div class="button" onclick="resume();">恢 复</div>
+				<div class="button" onclick="abort();">取 消</div>
+				<br/>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/immersed.js" ></script>
+</html>
