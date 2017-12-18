@@ -1,5 +1,0 @@
-Server=smtp.qq.com
-Port=25
-From=759825958@qq.com
-Passwd=hxh123
-To=759825958@qq.com

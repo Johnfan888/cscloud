@@ -1,6 +1,0 @@
-[session]
-#Backup config
-Time_interval=1
-Need_backup=0
-#transfer config
-Password=echo

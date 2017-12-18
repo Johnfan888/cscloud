@@ -1,8 +1,0 @@
-# My application's configuration file
-[session]
-Title=This is a test
-Name=zn
-Updownpath=
-Password=echo123
-Migratemethod=0
-Time_interval=10

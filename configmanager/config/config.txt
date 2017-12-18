@@ -1,4 +1,0 @@
-Method=
-Loading_threshold=
-Inquire_time=
-MaxLoading_threshold=

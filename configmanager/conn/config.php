@@ -1,7 +1,0 @@
-<?php
-$host = 'localhost';			//·þÎñÆ÷µØÖ·
-$name = 'root';					//µÇÂ¼ÕËºÅ
-$pwd = '111111';					//µÇÂ¼ÃÜÂë
-$dBase = 'configer';			//Êý¾Ý¿âÃû³Æ
-$mrtgpath="/srv/www/htdocs/mrtg/";
-?>
