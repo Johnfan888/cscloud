@@ -1,0 +1,73 @@
+Put
+
+1：客户端到manage上获得元数据信息
+修改：
+（1）curl找的文件名修改为csc_manage_http_put.php
+（2）判断状态为$status = "unfound"时，不上传文件（说明用户未注册）
+（3）返回的信息添加 $userid（用户ID）和$version（版本信息）
+
+2：客户端到fileserver上传数据
+（1）curl要找的文件名修改为csc_fileserver_http_put.php
+（2）返回的dirpath不做任何处理。
+（3）将owner返回的值修改为userid。
+（4）返回version信息到fileserver。
+
+存在问题：
+(未保存文件名，UUID唯一（文件名相同时UUID是相同？），如何判断多版本)
+不可能存在同名的文件，修改时，直接将修改的内容修改上传过的文件？
+
+Put API：使用格式：   method：Put
+                      user：username
+		      password:  //没有传送
+		      filename：UUID
+            
+
+Get:
+(1)Client--->manage(Method=Get，传递username，验证是否存在：FileName--->获取文件所在（判断主服务器是否正常？正常，返回服务器信息）fileserver，userid,version（暂时不处理）)
+(2)返回userid，fileserver，filepath,version信息到Client端；
+(3）client端返回FileName，userid，version信息到；
+
+Get API 格式：
+client--->manage server
+method：Get
+user：username
+password:ignore（TODO）  
+filename：
+
+client--->fileserver:
+method='Get'
+owner=
+dirpath=
+filename=
+replicaip=
+replicalocation=
+managerserverip=
+version=
+
+Delete API 格式：
+
+client---->manage
+
+method:Delete
+user:username
+password:ignore
+filename:
+
+
+client---->fileserver
+method=Delete
+owner=
+filename=
+managerserverip=
+dirpath=
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+add 1000 files with the policy of s3
+The number of the file:1000
+Elapsed Time:0.913923
+add 1000 files with the policy of s3
+The number of the file:10000
+Elapsed Time:0.942887
+add 1000 files with the policy of s3
+The number of the file:100000
+Elapsed Time:1.09535
+add 1000 files with the policy of s3
+The number of the file:1000000
+Elapsed Time:4.26119

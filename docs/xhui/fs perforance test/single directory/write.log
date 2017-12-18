@@ -1,0 +1,16 @@
+
+
+
+
+write data to 1000 files when the number of files up to 500000 under the directory
+Elapsed Time:1.21298
+
+write data to 1000 files when the number of files up to 100000 under the directory
+Elapsed Time:0.976534
+
+
+write data to 1000 files when the number of files up to 10000 under the directory
+Elapsed Time:0.802355
+
+write data to 1000 files when the number of files up to 1000 under the directory
+Elapsed Time:0.800481

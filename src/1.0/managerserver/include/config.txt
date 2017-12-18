@@ -1,0 +1,12 @@
+ServerIP_M=
+Cachecount=20
+Host=localhost
+DBuser=root
+DBpwd=
+DBname=manager
+Webdir=http://localhost
+Dirpath=/srv/www/htdocs
+#transfer
+Migratemethod=0
+Time_interval=30
+Password=echo

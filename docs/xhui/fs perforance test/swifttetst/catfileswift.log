@@ -1,0 +1,16 @@
+cat 4 files 100 times with swift policy
+The total number of the files is 1000
+The structure of the directory 886,1
+Elapsed Time:2.88188
+cat 20 files 100 times with swift policy
+The total number of the files is 10000
+The structure of the directory 3730,3
+Elapsed Time:4.36695
+cat 24 files 100 times with swift policy
+The total number of the files is 100000
+The structure of the directory 4096,24
+Elapsed Time:5.23784
+cat 244 files 100 times with swift policy
+The total number of the files is 1000000
+The structure of the directory 4096,244
+Elapsed Time:26.5145

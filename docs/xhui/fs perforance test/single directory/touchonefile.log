@@ -1,0 +1,15 @@
+Storyed all files under a single directory
+The number of the file: 1000
+Elapsed Time:0.651515
+
+Storyed all files under a single directory
+The number of the file: 10000
+Elapsed Time:6.78573
+
+Storyed all files under a single directory
+The number of the file: 100000
+Elapsed Time:69.4021
+
+Storyed all files under a single directory
+The number of the file: 500000
+Elapsed Time:367.678

@@ -1,0 +1,5 @@
+Server=mail.istl.chd.edu.cn
+Port=25
+From=zfan@istl.chd.edu.cn
+Passwd=123456
+To=zfan@istl.chd.edu.cn

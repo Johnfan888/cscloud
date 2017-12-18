@@ -1,0 +1,12 @@
+rm 4 files under the policy of swift
+The number of the file:1000
+Elapsed Time:0.0155027
+rm 20 files under the policy of swift
+The number of the file:10000
+Elapsed Time:0.0291314
+rm 24 files under the policy of swift
+The number of the file:100000
+Elapsed Time:0.0263553
+rm 244 files under the policy of swift
+The number of the file:1000000
+Elapsed Time:0.442981

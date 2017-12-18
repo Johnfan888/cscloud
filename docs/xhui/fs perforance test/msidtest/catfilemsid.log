@@ -1,0 +1,35 @@
+cat 4 files 100 times with msid policy
+The total number of the files is 1000
+The structure of the directory 16,16,4
+Elapsed Time:2.64743
+
+cat 39 files 100 times with msid policy
+The total number of the files is 10000
+The structure of the directory 16,16,20
+Elapsed Time:2.9934
+
+cat 24 files 100 times with msid policy
+The total number of the files is 100000
+The structure of the directory 16,16,390
+Elapsed Time:4.93848
+cat 24 files 100 times with msid policy
+The total number of the files is 100000
+The structure of the directory 16,256,24
+Elapsed Time:4.82969
+cat 24 files 100 times with msid policy
+The total number of the files is 100000
+The structure of the directory 256,16,24
+Elapsed Time:4.87217
+
+cat 244 files 100 times with msid policy
+The total number of the files is 1000000
+The structure of the directory 16,16,3906
+Elapsed Time:25.2031
+cat 244 files 100 times with msid policy
+The total number of the files is 1000000
+The structure of the directory 16,256,244
+Elapsed Time:25.3503
+cat 244 files 100 times with msid policy
+The total number of the files is 1000000
+The structure of the directory 256,16,244
+Elapsed Time:25.5518

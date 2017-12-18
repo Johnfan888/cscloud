@@ -1,0 +1,15 @@
+delete 1000 files
+The number of the total file:1000
+Elapsed Time:0.582251
+
+delete 1000 files
+The number of the total file:10000
+Elapsed Time:0.600821
+
+delete 1000 files
+The number of the total file:100000
+Elapsed Time:0.678808
+
+delete 1000 files
+The number of the total file:500000
+Elapsed Time:2.50813

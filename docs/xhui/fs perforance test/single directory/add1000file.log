@@ -1,0 +1,11 @@
+Add 1000 files when the number of the file up to 1000 under a directory
+Elapsed Time:0.682749
+
+Add 1000 files when the number of the file up to 10000 under a directory
+Elapsed Time:0.766194
+
+Add 1000 files when the number of the file up to 100000 under a directory
+Elapsed Time:0.926022
+
+Add 1000 files when the number of the file up to 500000 under a directory
+Elapsed Time:2.05113

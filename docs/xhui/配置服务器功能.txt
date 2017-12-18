@@ -1,0 +1,16 @@
+
+服务器：
+192.168.1.116~192.168.1.117
+192.168.1.125~192.168.1.130
+
+
+192.168.1.125：configermanager；zabbix
+192.168.1.116:managerserver
+192.168.1.126~192.168.1.129:fileserver
+
+192.168.1.117 // 192.168.1.130 //没有配置，待后期配置
+
+生成最新安装包：
+（1）解压  cscloud-1.0.tar.gz
+（2）删除configermanager,fileserver,managerserver文件夹
+（3）将svn上的configermanager,fileserver,managerserver复制到cscloud_distro/cscloud/src/1.0

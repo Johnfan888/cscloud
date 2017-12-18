@@ -1,0 +1,35 @@
+write data to 4 files 100 times with msid policy
+The total number of the file is 1000:
+The structure of the directory 16,16,4
+Elapsed Time:2.5653
+
+write data to 39 files 100 times with msid policy
+The total number of the file is 10000:
+The structure of the directory 16,16,20
+Elapsed Time:3.632
+
+write data to 24 files 100 times with msid policy
+The total number of the file is 100000:
+The structure of the directory 16,16,390
+Elapsed Time:6.36786
+write data to 24 files 100 times with msid policy
+The total number of the file is 100000:
+The structure of the directory 16,256,24
+Elapsed Time:6.46312
+write data to 24 files 100 times with msid policy
+The total number of the file is 100000:
+The structure of the directory 256,16,24
+Elapsed Time:6.24822
+
+write data to 224 files 100 times with msid policy
+The total number of the file is 1000000:
+The structure of the directory 16,16,3906
+Elapsed Time:13.8961
+write data to 244 files 100 times with msid policy
+The total number of the file is 1000000:
+The structure of the directory 16,256,244
+Elapsed Time:14.5701
+write data to 244 files 100 times with msid policy
+The total number of the file is 1000000:
+The structure of the directory 256,16,244
+Elapsed Time:14.4773

@@ -1,0 +1,824 @@
+@charset "UTF-8";
+/*文件列表*/
+.page-list {
+	position:absolute;
+	top:82px;
+	right:0;
+	bottom:37px;
+	left:0;
+	overflow:auto;
+}
+.page-list li {
+	position:relative;
+	height:40px;
+	padding:5px 0 5px 67px;
+	line-height:20px;
+	vertical-align:top;
+	border-bottom:1px solid #E7E7E7;
+	background:#FFF;
+}
+.page-list li:hover,
+.page-list li.hover,
+.page-list li.focus { background:#F6F6F6; }
+.page-list li input {
+	position:absolute;
+	top:19px;
+	left:10px;
+*top:16px;
+ *left:7px;
+}
+.page-list li .file-type {
+	position:absolute;
+	top:13px;
+	left:32px;
+}
+.page-list .file-name {
+	margin-right:195px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.page-list .file-name,
+.page-list .file-name a { color:#151515; }
+.page-list .file-name a:hover {
+	text-decoration:none;
+	color:#3A76C6;
+}
+.page-list .file-info {
+	height:20px;
+	overflow:hidden;
+	color:#BABABA;
+}
+.page-list .file-info em {
+	float:left;
+	margin-right:10px;
+}
+.page-list .file-opt {
+	position:absolute;
+	top:17px;
+	right:20px;
+	height:16px;
+}
+.file-opt a,
+.ico-lio {
+	float:left;
+	display:inline-block;
+	width:16px;
+	height:16px;
+	margin-left:15px;
+	line-height:10;
+	overflow:hidden;
+	background-image:url(../images/ico_list_opt.png);
+	_background-image:url(../images/ico_list_opt.png);
+}
+.ico-lio { margin:2px 10px 0 0; }
+.il-preview { background-position:0 0; }
+.il-download { background-position:-20px 0; }
+.il-share { background-position:-40px 0; }
+.il-star { background-position:-60px 0; }
+.il-more { background-position:-80px 0; }
+.il-lock { background-position:-100px 0; }
+.il-divert { background-position:-120px 0; }
+.il-listen { background-position:-140px 0; }
+.il-delete { background-position:-160px 0; }
+.il-rename { background-position:-180px 0; }
+.il-preview:hover { background-position:0 -20px; }
+.il-download:hover { background-position:-20px -20px; }
+.il-share:hover { background-position:-40px -20px; }
+.il-star:hover { background-position:-60px -20px; }
+.il-more:hover { background-position:-80px -20px; }
+.il-lock:hover { background-position:-100px -20px; }
+.il-divert:hover { background-position:-120px -20px; }
+.il-listen:hover { background-position:-140px -20px; }
+.il-delete:hover { background-position:-160px -20px; }
+.il-rename:hover { background-position:-180px -20px; }
+.il-star-active,
+.il-star-active:hover { background-position:-60px -40px; }
+.il-lock-active,
+.il-lock-active:hover { background-position:-100px -40px; }
+.il-continue { background-position:-120px -40px; }
+/**/
+
+/*文件列表 图标模式*/
+.list-icon ul {
+	padding:10px 5px 5px 10px;
+	zoom:1;
+}
+.list-icon li {
+	float:left;
+	width:104px;
+	height:134px;
+	margin:0 5px 5px 0;
+	padding:18px 5px 0;
+	border:1px solid #FFF;
+}
+.list-icon li:hover,
+.list-icon li.hover,
+.list-icon li.focus { border-color:#C8C8C8; }
+.list-icon li input {
+	display:none;
+	top:4px;
+	left:4px;
+ *top:0;
+ *left:1px;
+}
+.list-icon li .file-icon,
+.list-icon li .file-thumb,
+.list-icon li .folder-cover {
+	display:block;
+	margin:auto;
+}
+.list-icon li .img-wrap,
+.file-detail .img-wrap {
+	position:relative;
+	width:73px;
+	height:73px;
+	margin:auto;
+	text-align:center;
+	overflow:hidden;
+	border:1px solid #E6E6E6;
+	background:#FFF;
+}
+.list-icon li .img-wrap i,
+.file-detail .img-wrap i {
+	display:inline-block;
+	height:100%;
+	vertical-align:middle;
+}
+.list-icon li .img-wrap img,
+.file-detail .img-wrap img {
+	max-width:69px;
+	max-height:69px;
+	vertical-align:middle;
+}
+.list-icon li .folder-cover,
+.file-detail .folder-cover {
+	width:50px;
+	height:34px;
+	padding:32px 8px 9px;
+	text-align:center;
+	overflow:hidden;
+	background:url(../images/folder_cover.gif) no-repeat 0 -6px;
+}
+.list-icon li .folder-cover img,
+.file-detail .folder-cover img {
+	width:50px;
+	height:34px;
+}
+.list-icon li .file-name {
+	width:104px;
+	height:16px;
+	margin:8px 0 5px;
+	padding:2px 0;
+	line-height:17px;
+	text-align:center;
+}
+.list-icon li .ico-lio {
+	float:none;
+	margin:0 3px 0 0;
+	vertical-align:top;
+}
+.list-icon li .file-info { text-align:center; }
+.list-icon li .file-opt {
+	display:none;
+	position:absolute;
+	top:auto;
+	right:0;
+	bottom:0;
+	left:0;
+	width:112px;
+	height:16px;
+	padding:4px 0;
+	text-align:center;
+	border:1px solid #F6F6F6;
+	background:#EAEAEA;
+	cursor:default;
+}
+.list-icon li .file-opt a {
+	float:none;
+	margin:0 5px;
+	vertical-align:top;
+}
+.list-icon li:hover input,
+.list-icon li.hover input,
+.list-icon li.focus input,
+.list-icon li:hover .file-opt,
+.list-icon li.hover .file-opt,
+.list-icon li.focus .file-opt { display:block; }
+/*文件列表 缩略图*/
+.list-thumb li {
+	width:110px;
+	height:160px;
+	padding:18px 10px 0;
+}
+.list-thumb li .img-wrap {
+	width:98px;
+	height:98px;
+}
+.list-thumb li .img-wrap img {
+	max-width:94px;
+	max-height:94px;
+}
+.list-thumb li .folder-cover {
+	width:70px;
+	height:47px;
+	padding:39px 10px 14px;
+	background-position:-70px 19px;
+}
+.list-thumb li .folder-cover img {
+	width:70px;
+	height:47px;
+}
+.list-thumb li .file-name { width:110px; }
+.list-thumb li .file-opt { width:128px; }
+.list-thumb li .file-opt a { margin:0 6px; }
+/**/
+
+/*新建文件夹 空文件夹*/
+.page-info {
+	position:absolute;
+	top:82px;
+	right:0;
+	bottom:0;
+	left:0;
+	padding:15px 15px 0 45px;
+	line-height:2;
+	background-repeat:no-repeat;
+	background-position:right bottom;
+}
+.page-info h3 {
+	position:relative;
+	min-height:24px;
+	_height:24px;
+	margin-bottom:10px;
+	line-height:24px;
+	font-size:12px;
+}
+.page-info .i-hint {
+	position:absolute;
+	top:2px;
+	left:-26px;
+	width:20px;
+	height:20px;
+	overflow:hidden;
+	background:url(../images/hint_icon.png) no-repeat 0 -32px;
+	_background-image:url(../images/hint_icon.gif);
+}
+.page-info em {
+	font-weight:normal;
+	color:#999;
+}
+.info-file { background-image:url(../images/page_info/info_file.jpg); }
+.info-document { background-image:url(../images/page_info/info_document.jpg); }
+.info-photo { background-image:url(../images/page_info/info_photo.jpg); }
+.info-music { background-image:url(../images/page_info/info_music.jpg); }
+.info-video { background-image:url(../images/page_info/info_video.jpg); }
+.info-sync { background-image:url(../images/page_info/info_sync.jpg); }
+/**/
+
+/*文件类型 图标*/
+.file-type,
+.file-icon,
+.file-thumb,
+.file-tp-s {
+	position:relative;
+	display:inline-block;
+	width:24px;
+	height:24px;
+	background-image:url(../images/file_type/unknown.gif);
+	background-repeat:no-repeat;
+	background-position:0 0;
+}
+.tp-folder { background-image:url(../images/file_type/folder.gif); }
+.tp-ai { background-image:url(../images/file_type/ai.gif); }
+.tp-doc,
+.tp-docx,
+.tp-docm,
+.tp-dot,
+.tp-dotx,
+.tp-dotm { background-image:url(../images/file_type/word.gif); }
+.tp-xls,
+.tp-xlsx,
+.tp-xlsm,
+.tp-xltx,
+.tp-xltm,
+.tp-xlam,
+.tp-xlsb { background-image:url(../images/file_type/excel.gif); }
+.tp-exe,
+.tp-bat { background-image:url(../images/file_type/exe.gif); }
+.tp-swf,
+.tp-flv,
+.tp-fla { background-image:url(../images/file_type/flv.gif); }
+.tp-ttf,
+.tp-ttc { background-image:url(../images/file_type/font.gif); }
+.tp-html,
+.tp-htm,
+.tp-chm { background-image:url(../images/file_type/html.gif); }
+.tp-jpg,
+.tp-jpeg,
+.tp-gif,
+.tp-bmp,
+.tp-png { background-image:url(../images/file_type/image.gif); }
+.tp-iso,
+.tp-dmg { background-image:url(../images/file_type/iso.gif); }
+.tp-mp3,
+.tp-wma,
+.tp-wav,
+.tp-midi,
+.tp-flac,
+.tp-ram,
+.tp-ra,
+.tp-mid,
+.tp-aac,
+.tp-m4a,
+.tp-ape,
+.tp-au,
+.tp-ogg { background-image:url(../images/file_type/music.gif); }
+.tp-pdf { background-image:url(../images/file_type/pdf.gif); }
+.tp-ppt,
+.tp-pptx,
+.tp-pptm { background-image:url(../images/file_type/ppt.gif); }
+.tp-psd { background-image:url(../images/file_type/ps.gif); }
+.tp-rar,
+.tp-zip,
+.tp-7z,
+.tp-tar { background-image:url(../images/file_type/rar.gif); }
+.tp-txt { background-image:url(../images/file_type/txt.gif); }
+.tp-asf,
+.tp-avi,
+.tp-wm,
+.tp-wmp,
+.tp-wmv,
+.tp-ram,
+.tp-rm,
+.tp-rmvb,
+.tp-rp,
+.tp-rpm,
+.tp-rt,
+.tp-smi,
+.tp-smil,
+.tp-m1v,
+.tp-m2p,
+.tp-m2t,
+.tp-m2ts,
+.tp-m2v,
+.tp-mp2v,
+.tp-mpe,
+.tp-mpeg,
+.tp-mpg,
+.tp-mpv2,
+.tp-pss,
+.tp-pva,
+.tp-tp,
+.tp-tpr,
+.tp-ts,
+.tp-m4b,
+.tp-m4p,
+.tp-m4v,
+.tp-mp4,
+.tp-mpeg4,
+.tp-3g2,
+.tp-3gp,
+.tp-3gp2,
+.tp-3gpp,
+.tp-mov,
+.tp-qt,
+.tp-f4v,
+.tp-flv,
+.tp-hlv,
+.tp-swf,
+.tp-ifo,
+.tp-vob,
+.tp-amv,
+.tp-bik,
+.tp-csf,
+.tp-divx,
+.tp-evo,
+.tp-ivm,
+.tp-mkv,
+.tp-mod,
+.tp-mts,
+.tp-ogm,
+.tp-pmp,
+.tp-scm,
+.tp-tod,
+.tp-vp6,
+.tp-webm,
+.tp-xlmv,
+.tp-asx,
+.tp-cue,
+.tp-pls,
+.tp-qpl,
+.tp-ass,
+.tp-srt,
+.tp-ssa,
+.tp-dat { background-image:url(../images/file_type/video.gif); }
+.tp-xml,
+.tp-php,
+.tp-net,
+.tp-asp,
+.tp-aspx,
+.tp-log,
+.tp-lst,
+.tp-cs,
+.tp-h,
+.tp-bas,
+.tp-c,
+.tp-cpp,
+.tp-pas,
+.tp-dpr,
+.tp-dfm,
+.tp-plist,
+.tp-tpl { background-image:url(../images/file_type/word.gif); }
+.tp-unknow { background-image:url(../images/file_type/unknow.gif); }
+/**/
+
+/*文件列表 图标*/
+.file-icon {
+	width:66px;
+	height:75px;
+	background-image:url(../images/file_icon/unknown.gif);
+}
+.ti-folder { background-image:url(../images/file_icon/folder.gif); }
+.ti-ai { background-image:url(../images/file_icon/ai.gif); }
+.ti-doc,
+.ti-docx,
+.ti-docm,
+.ti-dot,
+.ti-dotx,
+.ti-dotm { background-image:url(../images/file_icon/doc.gif); }
+.ti-xlsx,
+.ti-xlsm,
+.ti-xltx,
+.ti-xltm,
+.ti-xlam,
+.ti-xlsb { background-image:url(../images/file_icon/excel.gif); }
+.ti-exe,
+.ti-bat { background-image:url(../images/file_icon/exe.gif); }
+.ti-swf,
+.ti-flv,
+.ti-fla { background-image:url(../images/file_icon/flv.gif); }
+.ti-ttf,
+.ti-ttc { background-image:url(../images/file_icon/font.gif); }
+.ti-html,
+.ti-htm,
+.ti-chm { background-image:url(../images/file_icon/html.gif); }
+.ti-jpg,
+.ti-jpeg,
+.ti-gif,
+.ti-bmp,
+.ti-png { background-image:url(../images/file_icon/image.gif); }
+.ti-iso,
+.ti-dmg { background-image:url(../images/file_icon/iso.gif); }
+.ti-mp3,
+.ti-wma,
+.ti-wav,
+.ti-midi,
+.ti-flac,
+.ti-ram,
+.ti-ra,
+.ti-mid,
+.ti-aac,
+.ti-m4a,
+.ti-ape,
+.ti-au,
+.ti-ogg { background-image:url(../images/file_icon/music.gif); }
+.ti-pdf { background-image:url(../images/file_icon/pdf.gif); }
+.ti-ppt,
+.ti-pptx,
+.ti-pptm { background-image:url(../images/file_icon/ppt.gif); }
+.ti-psd { background-image:url(../images/file_icon/ps.gif); }
+.ti-rar,
+.ti-zip,
+.ti-7z,
+.ti-tar { background-image:url(../images/file_icon/rar.gif); }
+.ti-txt { background-image:url(../images/file_icon/txt.gif); }
+.ti-asf,
+.ti-avi,
+.ti-wm,
+.ti-wmp,
+.ti-wmv,
+.ti-ram,
+.ti-rm,
+.ti-rmvb,
+.ti-rp,
+.ti-rpm,
+.ti-rt,
+.ti-smi,
+.ti-smil,
+.ti-m1v,
+.ti-m2p,
+.ti-m2t,
+.ti-m2ts,
+.ti-m2v,
+.ti-mp2v,
+.ti-mpe,
+.ti-mpeg,
+.ti-mpg,
+.ti-mpv2,
+.ti-pss,
+.ti-pva,
+.ti-tp,
+.ti-tpr,
+.ti-ts,
+.ti-m4b,
+.ti-m4p,
+.ti-m4v,
+.ti-mp4,
+.ti-mpeg4,
+.ti-3g2,
+.ti-3gp,
+.ti-3gp2,
+.ti-3gpp,
+.ti-mov,
+.ti-qt,
+.ti-f4v,
+.ti-flv,
+.ti-hlv,
+.ti-swf,
+.ti-ifo,
+.ti-vob,
+.ti-amv,
+.ti-bik,
+.ti-csf,
+.ti-divx,
+.ti-evo,
+.ti-ivm,
+.ti-mkv,
+.ti-mod,
+.ti-mts,
+.ti-ogm,
+.ti-pmp,
+.ti-scm,
+.ti-tod,
+.ti-vp6,
+.ti-webm,
+.ti-xlmv,
+.ti-asx,
+.ti-cue,
+.ti-pls,
+.ti-qpl,
+.ti-ass,
+.ti-srt,
+.ti-ssa,
+.ti-dat { background-image:url(../images/file_icon/video.gif); }
+.ti-xml,
+.ti-php,
+.ti-net,
+.ti-asp,
+.ti-aspx,
+.ti-log,
+.ti-lst,
+.ti-cs,
+.ti-h,
+.ti-bas,
+.ti-c,
+.ti-cpp,
+.ti-pas,
+.ti-dpr,
+.ti-dfm,
+.ti-plist,
+.ti-tpl { background-image:url(../images/file_icon/word.gif); }
+.folder-document { background:url(../images/file_icon/folder_document.gif); }
+.folder-photo { background:url(../images/file_icon/folder_photo.gif); }
+.folder-music { background:url(../images/file_icon/folder_music.gif); }
+.folder-video { background:url(../images/file_icon/folder_video.gif); }
+.folder-sync { background:url(../images/file_icon/folder_sync.gif); }
+.folder-accessory { background:url(../images/file_icon/folder_accessory.gif); }
+.folder-recycle { background:url(../images/file_icon/folder_recycle.gif); }
+.folder-recent { background:url(../images/file_icon/folder_recent.gif); }
+.folder-shared { background:url(../images/file_icon/folder_shared.gif); }
+.folder-continue { background:url(../images/file_icon/folder_continue.gif); }
+.folder-favorite { background:url(../images/file_icon/folder_favorite.gif); }
+/**/
+
+/*文件列表 缩略图*/
+.file-thumb {
+	width:100px;
+	height:100px;
+	background-image:url(../images/file_thumb/unknown.gif);
+}
+.tb-folder { background-image:url(../images/file_thumb/folder.gif); }
+.tb-ai { background-image:url(../images/file_thumb/ai.gif); }
+.tb-doc,
+.tb-docx,
+.tb-docm,
+.tb-dot,
+.tb-dotx,
+.tb-dotm { background-image:url(../images/file_thumb/doc.gif); }
+.tb-xlsx,
+.tb-xlsm,
+.tb-xltx,
+.tb-xltm,
+.tb-xlam,
+.tb-xlsb { background-image:url(../images/file_thumb/excel.gif); }
+.tb-exe,
+.tb-bat { background-image:url(../images/file_thumb/exe.gif); }
+.tb-swf,
+.tb-flv,
+.tb-fla { background-image:url(../images/file_thumb/flv.gif); }
+.tb-ttf,
+.tb-ttc { background-image:url(../images/file_thumb/font.gif); }
+.tb-html,
+.tb-htm,
+.tb-chm { background-image:url(../images/file_thumb/html.gif); }
+.tb-jpg,
+.tb-jpeg,
+.tb-gif,
+.tb-bmp,
+.tb-png { background-image:url(../images/file_thumb/image.gif); }
+.tb-iso,
+.tb-dmg { background-image:url(../images/file_thumb/iso.gif); }
+.tb-mp3,
+.tb-wma,
+.tb-wav,
+.tb-midi,
+.tb-flac,
+.tb-ram,
+.tb-ra,
+.tb-mid,
+.tb-aac,
+.tb-m4a,
+.tb-ape,
+.tb-au,
+.tb-ogg { background-image:url(../images/file_thumb/music.gif); }
+.tb-pdf { background-image:url(../images/file_thumb/pdf.gif); }
+.tb-ppt,
+.tb-pptx,
+.tb-pptm { background-image:url(../images/file_thumb/ppt.gif); }
+.tb-psd { background-image:url(../images/file_thumb/ps.gif); }
+.tb-rar,
+.tb-zip,
+.tb-7z,
+.tb-tar { background-image:url(../images/file_thumb/rar.gif); }
+.tb-txt { background-image:url(../images/file_thumb/txt.gif); }
+.tb-asf,
+.tb-avi,
+.tb-wm,
+.tb-wmp,
+.tb-wmv,
+.tb-ram,
+.tb-rm,
+.tb-rmvb,
+.tb-rp,
+.tb-rpm,
+.tb-rt,
+.tb-smi,
+.tb-smil,
+.tb-m1v,
+.tb-m2p,
+.tb-m2t,
+.tb-m2ts,
+.tb-m2v,
+.tb-mp2v,
+.tb-mpe,
+.tb-mpeg,
+.tb-mpg,
+.tb-mpv2,
+.tb-pss,
+.tb-pva,
+.tb-tp,
+.tb-tpr,
+.tb-ts,
+.tb-m4b,
+.tb-m4p,
+.tb-m4v,
+.tb-mp4,
+.tb-mpeg4,
+.tb-3g2,
+.tb-3gp,
+.tb-3gp2,
+.tb-3gpp,
+.tb-mov,
+.tb-qt,
+.tb-f4v,
+.tb-flv,
+.tb-hlv,
+.tb-swf,
+.tb-ifo,
+.tb-vob,
+.tb-amv,
+.tb-bik,
+.tb-csf,
+.tb-divx,
+.tb-evo,
+.tb-ivm,
+.tb-mkv,
+.tb-mod,
+.tb-mts,
+.tb-ogm,
+.tb-pmp,
+.tb-scm,
+.tb-tod,
+.tb-vp6,
+.tb-webm,
+.tb-xlmv,
+.tb-asx,
+.tb-cue,
+.tb-pls,
+.tb-qpl,
+.tb-ass,
+.tb-srt,
+.tb-ssa,
+.tb-dat { background-image:url(../images/file_thumb/video.gif); }
+.tb-xml,
+.tb-php,
+.tb-net,
+.tb-asp,
+.tb-aspx,
+.tb-log,
+.tb-lst,
+.tb-cs,
+.tb-h,
+.tb-bas,
+.tb-c,
+.tb-cpp,
+.tb-pas,
+.tb-dpr,
+.tb-dfm,
+.tb-plist,
+.tb-tpl { background-image:url(../images/file_thumb/word.gif); }
+/**/
+
+/*已共享*/
+b.shared {
+	position:absolute;
+	bottom:-3px;
+	left:-2px;
+	width:28px;
+	height:9px;
+	overflow:hidden;
+	background:url(../images/ico_shared_type.png) no-repeat 0 0;
+	_background-image:url(../images/ico_shared_type.gif);
+}
+.file-icon b.shared,
+.file-thumb b.shared,
+.img-wrap b.shared {
+	left:-3px;
+	width:40px;
+	height:13px;
+	background-position:0 -14px;
+}
+.img-wrap b.shared {
+	bottom:0;
+	left:0;
+}
+/**/
+
+/*文件星标*/
+a.tpstar {
+	position:absolute;
+	top:0;
+	right:1px;
+	width:20px;
+	height:20px;
+	line-height:20;
+	overflow:hidden;
+	background:url(../images/ico_star_type.png) no-repeat -7px 0;
+	_background-image:url(../images/ico_star_type.gif);
+}
+.img-wrap a.tpstar {
+	top:-1px;
+	right:-1px;
+	_right:-2px;
+}
+.list-thumb a.tpstar {
+	right:5px;
+	width:27px;
+	height:27px;
+	background-position:0 -20px;
+}
+.list-thumb .img-wrap a.tpstar { right:-1px; }
+/**/
+
+/*for IE 6*/
+*html .page-list {
+	position:relative;
+	top:0;
+height:expression((function(el) {
+ try {
+ el.style.height=document.body.clientHeight-119+"px";
+ window.onresize=function() {
+ el.style.height=document.body.clientHeight-119+"px";
+}
+}
+ catch(e) {
+}
+}
+)(this));
+}
+*html .page-info {
+	position:relative;
+	top:0;
+height:expression((function(el) {
+ try {
+ el.style.height=document.body.clientHeight-97+"px";
+ window.onresize=function() {
+ el.style.height=document.body.clientHeight-97+"px";
+}
+}
+ catch(e) {
+}
+}
+)(this));
+}

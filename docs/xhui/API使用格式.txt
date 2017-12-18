@@ -1,0 +1,49 @@
+Put API:
+   Client---->manage/csc_manage_http_put.php	   
+   method：Put
+   user：username
+   filename：UUID
+   Cilent----->www/csc_fileserver_http_put.php
+   method:Put
+   owner:userid
+   dirpath:filerserverpath
+   filename:UUID
+   replicaip:
+   replicapath:
+   managerserverip:
+   version:      
+
+Get:
+
+Get API 格式：
+client--->manage/csc_manage_http_get.php
+method：Get
+user：username
+  
+filename：
+
+client--->www/csc_fileserver_http_get.php
+method='Get'
+owner=
+dirpath=
+filename=
+version=
+
+Delete API 格式：
+
+client---->manage/csc_manage_http_delete.php
+
+method:Delete
+user:username
+filename:UUID
+
+client---->www/csc_fileserver_http_delete.php
+method=Delete
+owner=
+dirpath=
+filename=
+version=
+managerserverip=
+
+
+

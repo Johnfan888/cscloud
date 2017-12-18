@@ -1,0 +1,107 @@
+<html>
+
+<head> 
+<title>
+	search file
+</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=gbk" />    
+   <link rel='stylesheet' type='text/css' href='css/private.css'>           
+<script   language="JavaScript"   src="TreeMenu.js"></script>   
+    <style type="text/css">
+<!--
+.STYLE2 {
+	color: #330099;
+	font-weight: bold;
+}
+-->
+    </style>
+</head>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" align="center" class=Navi>
+  <tr><td colspan="2"> <p class="STYLE2"><center>文件检索
+  </center></p></td>
+  </tr>
+   <tr>
+     <td width="50%" align="center">
+	  
+	   <table border="0" cellspacing="0" cellpadding="0" align="center" class=Navi>
+       <tr >
+       <td align="center" valign="top"><strong>普通检索</strong>：</td>
+       </tr>
+	   <tr><td>  <form action="keyquery.php" method="post">
+          关键字检索
+            <input name="keywords" type="text">
+            <input name="submit" type="submit" id="submit" value="检索" >
+            <input name="清空" type="reset" value="清空">
+          </form> </td></tr>
+	     <!--<tr><td>  <form action="dirquery.php" method="post">
+         目录查找
+            <input name="dir" type="text">
+            <input name="submit" type="submit" id="submit" value="检索" >
+            <input name="清空" type="reset" value="清空">
+           </form> </td></tr>-->
+	       <tr><td>  <form action="createtimequery.php" method="post">
+           创建日期检索
+          (例如：2010-01-06)
+              <input name="createtime" type="text">
+              <input name="submit" type="submit" id="submit" value="检索" >
+                <input name="清空" type="reset" value="清空">
+	          </form> </td></tr>
+		<tr><td>  <form action="modifytimequery.php" method="post">
+           修改日期检索
+          (例如：2010-01-06)
+              <input name="modifytime" type="text">
+              <input name="submit" type="submit" id="submit" value="检索" >
+                <input name="清空" type="reset" value="清空">
+ 		</form> </td></tr>
+	      <tr><td>  <form action="visittimequery.php" method="post">
+          访问日期检索
+          (例如：2010-01-06)
+              <input name="visittime" type="text">
+              <input name="submit" type="submit" id="submit" value="检索" >
+              <input name="清空" type="reset" value="清空">
+    	      </form> </td></tr>
+			<!--<tr><td>  <form action="ownerquery.php" method="post">
+            <p>拥有者查找</br>
+              <input name="owner" type="text">
+              <input name="查看" type="submit" value="检索" >
+              <input name="清空" type="reset" value="清空">
+            </p>
+			</form> 
+			</td></tr>-->
+		  </table>
+		</td>
+   <td >
+	<table  border="0" cellspacing="0" cellpadding="0" align="center" class=Navi>
+	  <tr>
+       <td align="center" valign="top"><p>&nbsp;</p>
+         <p><strong>高级检索</strong>：</p>
+    <form action="advancedsearch.php" method="post">
+	   
+	    <p> <select name="selectcondition1" size="1">
+	              <option selected value="1">关键字</option>
+	            <!--  <option value="2">目录名 </option>-->
+	        </select>
+	          <input name="select1" type="text">
+	   And</p>
+	    <p><select name="selectcondition2" size="1">
+	            <option selected value="1">创建时间</option>
+	              <option value="2">修改时间</option>
+	              <option value="3">访问时间</option>
+	             
+          </select>
+	          <input name="select2" type="text">
+	<!-- And</p>
+	    <p><select name="selectcondition3" size="1">
+	 	              <option selected value="1">拥有者</option>
+        </select>
+	          <input name="select3" type="text">-->
+	 </p>
+	 <input name="submit" type="submit" id="submit" value="检索">
+	 <input name="reset" type="reset" value="清空">
+	 </form>
+	 </td></tr>
+	 </table>
+	 </table>
+</body>
+</html>

@@ -1,0 +1,16 @@
+rm 4 files under the policy of swift
+The number of the file:1000
+The structure of the directory 886,1
+Elapsed Time:0.00798607
+rm 20 files under the policy of swift
+The number of the file:10000
+The structure of the directory 3730,3
+Elapsed Time:0.0356951
+rm 24 files under the policy of swift
+The number of the file:100000
+The structure of the directory 4096,24
+Elapsed Time:0.0527115
+rm 244 files under the policy of swift
+The number of the file:1000000
+The structure of the directory 4096,244
+Elapsed Time:0.228761

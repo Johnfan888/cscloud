@@ -1,0 +1,33 @@
+list all the files with msid policy
+The number of the file:1000
+Elapsed Time:0.0535984
+
+list all the files with msid policy
+The number of the file:10000
+Elapsed Time:0.130914
+
+list all the files with msid policy
+The number of the file:100000
+The structure of the directory 16,16,390
+Elapsed Time:1.04269
+list all the files with msid policy
+The number of the file:100000
+The structure of the directory 16,256,24
+Elapsed Time:7.40063
+list all the files with msid policy
+The number of the file:100000
+The structure of the directory 256,16,24
+Elapsed Time:1.19358
+
+list all the files with msid policy
+The number of the file:1000000
+The structure of the directory 16,16,3906
+Elapsed Time:34.171
+list all the files with msid policy
+The number of the file:1000000
+The structure of the directory 16,256,244
+Elapsed Time:43.2206
+list all the files with msid policy
+The number of the file:1000000
+The structure of the directory 256,16,244
+Elapsed Time:53.3381

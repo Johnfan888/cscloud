@@ -1,0 +1,12 @@
+cat 4 files 100 times with s3 policy
+The total number of the files is 1000
+Elapsed Time:2.13731
+cat 20 files 100 times with s3 policy
+The total number of the files is 10000
+Elapsed Time:4.30852
+cat 24 files 100 times with s3 policy
+The total number of the files is 100000
+Elapsed Time:4.92713
+cat 244 files 100 times with s3 policy
+The total number of the files is 1000000
+Elapsed Time:30.333

@@ -1,0 +1,15 @@
+read 1000 files 100 times
+The number of the total file:1000
+Elapsed Time:60.5349
+
+read 1000 files 100 times
+The number of the total file:10000
+Elapsed Time:87.5241
+
+read 1000 files 100 times
+The number of the total file:100000
+Elapsed Time:90.1406
+
+read 1000 files 100 times
+The number of the total file:500000
+Elapsed Time:121.534

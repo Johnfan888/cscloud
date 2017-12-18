@@ -1,0 +1,15 @@
+list all the files under the single directory
+The number of the file:1000
+Elapsed Time:0.0236626
+
+list all the files under the single directory
+The number of the file:10000
+Elapsed Time:0.118203
+
+list all the files under the single directory
+The number of the file:100000
+Elapsed Time:1.10712
+
+list all the files under the single directory
+The number of the file:500000
+Elapsed Time:94.574

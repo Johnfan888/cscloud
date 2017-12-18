@@ -1,0 +1,16 @@
+write data to 4 files 100 times with swift policy
+The total number of the file is 1000:
+The structure of the directory 886,1
+Elapsed Time:5.37837
+write data to 20 files 100 times with swift policy
+The total number of the file is 10000:
+The structure of the directory 3730,3
+Elapsed Time:6.44398
+write data to 24 files 100 times with swift policy
+The total number of the file is 100000:
+The structure of the directory 4096,24
+Elapsed Time:6.35376
+write data to 244 files 100 times with swift policy
+The total number of the file is 1000000:
+The structure of the directory 4096,244
+Elapsed Time:24.5129

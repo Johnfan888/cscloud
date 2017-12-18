@@ -1,0 +1,12 @@
+write data to 4 files 100 times with s3 policy
+The total number of the file is 1000:
+Elapsed Time:5.16255
+write data to 20 files 100 times with s3 policy
+The total number of the file is 10000:
+Elapsed Time:5.98444
+write data to 24 files 100 times with s3 policy
+The total number of the file is 100000:
+Elapsed Time:6.58629
+write data to 244 files 100 times with s3 policy
+The total number of the file is 1000000:
+Elapsed Time:16.2449

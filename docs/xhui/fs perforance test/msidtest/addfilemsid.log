@@ -1,0 +1,35 @@
+add 1000 files with the policy of msid
+The number of the file:1000
+The structure of the directory 16,16,4
+Elapsed Time:0.828656
+
+add 1000 files with the policy of msid
+The number of the file:10000
+The structure of the directory 16,16,20
+Elapsed Time:0.832777
+
+add 1000 files with the policy of msid
+The number of the file:100000
+The structure of the directory 16,16,390
+Elapsed Time:0.858372
+add 1000 files with the policy of msid
+The number of the file:100000
+The structure of the directory 16,256,24
+Elapsed Time:0.861755
+add 1000 files with the policy of msid
+The number of the file:100000
+The structure of the directory 256,16,24
+Elapsed Time:0.833727
+
+add 1000 files with the policy of msid
+The number of the file:1000000
+The structure of the directory 16,16,3906
+Elapsed Time:0.836325
+add 1000 files with the policy of msid
+The number of the file:1000000
+The structure of the directory 16,256,244
+Elapsed Time:0.889121
+add 1000 files with the policy of msid
+The number of the file:1000000
+The structure of the directory 256,16,244
+Elapsed Time:0.874561

@@ -1,0 +1,17 @@
+list all the files with swift policy
+The number of the file:1000
+The structure of the directory 886,1
+Elapsed Time:0.927774
+
+list all the files with swift policy
+The number of the file:10000
+The structure of the directory 3730,3
+Elapsed Time:2.28071
+list all the files with swift policy
+The number of the file:100000
+The structure of the directory 4096,24
+Elapsed Time:92.8324
+list all the files with swift policy
+The number of the file:1000000
+The structure of the directory 4096,244
+Elapsed Time:947.109
