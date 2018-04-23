@@ -1,102 +1,103 @@
 <?php
-function writeFile($filename)
-{
-	/* Read data from the stdin stream */
-	$fp_input = fopen("php://input", "r"); //read post data
-
-	/* Open a file for writing */
-	$fp = fopen($filename, "w");
-	
-	/* Read 8 KB at a time and write to the file */
-	while ($data = fread($fp_input, 1024 * 8))
-		fwrite($fp, $data);
-
-	/* Close the streams */
-	fclose($fp);
-	fclose($fp_input);
-}
-
-function read_File($filename)
-{
-	/* Write data to the stdout stream */
-	$fp_output = fopen("php://output", "w"); //只写数据流，数据写入到输出缓存中。
-
-	/* Open a file for reading */
-	$fp = fopen($filename, "r");
-	
-	/* Read 8 KB at a time and write to the stdout */
-	while ($data = fread($fp, 1024 * 8))
-		fwrite($fp_output, $data);
-
-	/* Close the streams */
-	fclose($fp);
-	fclose($fp_output);
-}
- 
-function send($url,$post_data) //Curl调用
-{
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_POST, 1);
-	//curl_setopt($ch, CURLOPT_VERBOSE, 1);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 30); 
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-	curl_exec($ch);
-	curl_close($ch);
-}
-
-$method = $_GET['method'];
-$owner = $_GET['owner']; //use useid replace owner
-$dirpath = $_GET['dirpath']; //存储路径
-$filename = $_GET['filename']; //文件名
-//ha info
-$replicaip=$_GET['replicaip'];
-$replicapath=$_GET['replicapath'];
-//TODO muti-version info
-$version=$_GET['version']; //版本
-$dirpath=$dirpath.$owner."/";
-/*$fh=fopen('/var/log/csc/test1.txt','w+');
-fwrite($fh,'hi');
-fclose($fh);*/
-/*	//  S3 write file 
-	$fullPath = $dirpath.$filename;  //S3完整路径
+/*
+* FS RESTFUL API - PUT
+* author: zfan
 */
-	//swift
-	/*$arr=substr($filename,-3);
-	$dirpath=$dirpath.$arr."/";
-	$fullPath=$dirpath.$filename;*/
-	 //FDDM (以后)
-	$arr1=substr($filename,0,1);
-	$arr1=md5($arr1);
-	$arr2=substr($filename,1,1);
-	$arr2=md5($arr2);
-	$dirpath=$dirpath.$arr1."/".$arr2."/";
-	$fullPath=$dirpath.$filename;
-	
-	//public
-	
-	if(!is_dir($dirpath)) {//判断路径
+
+require("../includes/fs.helper.inc.php");
+
+$method = $_POST['method'];
+$status = $_POST['status'];
+$userid = $_POST['userid'];
+$fileserverpath = $_POST['fileserverpath'];
+$filename = $_POST['filename'];
+$file_id = $_POST['file_id'];
+$key = $_POST['key'];
+$ms_ip = $_POST['managerserverip'];
+// HA info
+$replicaip=$_POST['replicaip'];
+$replicapath=$_POST['replicapath'];
+//TODO muti-version info
+$version=$_POST['version'];
+$dirpath=$fileserverpath.$userid."/";
+
+/*	// S3 write file 
+$file_id = UniqueName();
+$fullPath = $dirpath.$file_id;
+*/
+/*	// SWIFT
+$file_id = UniqueName();
+$arr=substr($file_id,-3);
+$dirpath=$dirpath.$arr."/";
+$fullPath=$dirpath.$file_id;
+*/
+
+// UDPM
+if($status == "new")
+{	
+	$file_id = UniqueName();
+	WriteLog('cscHttpPut', " new file. create ID: {$file_id}");
+}
+else
+{
+	// Multi-version support may not need for ingesting from FS API
+	WriteLog('cscHttpPut', " existing file. file ID: {$file_id}");
+}
+//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
+$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+if(!is_dir($dirpath)) {
 	mkdir($dirpath, 0755, "-p");
-	}
-	writeFile($fullPath); //上传的数据写入目录
+}
+$fullPath=$dirpath.$file_id;
+WriteLog('cscHttpPut', " fileID: {$file_id}  fullPath: {$fullPath}");
+
+//Check whether legal
+$url = "http://{$ms_ip}/key.php" ;
+$data = array('key' => $key);
+$json = curlPost($url,$data,true);
+if(!$json['result'])
+{
+	WriteLog('cscHttpPutError', "File {$filename} with ID {$file_id} is saving illegally!");
+	exit;
+}
+
+if(move_uploaded_file($_FILES['file']['tmp_name'], $fullPath))
+{
+	WriteLog('cscHttpPut', "File {$filename} with ID {$file_id} saved successfully!");
 	$size=filesize($fullPath);
-	$post_data = array( 
+	$post_data = array(
+		"file_id" => $file_id,
 		"filename" => $filename,
-		"owner" => $owner,
-		"serverip" => $_SERVER['SERVER_ADDR'],
-		"location" => $fullPath,
+		"userid" => $userid,
+		"fileserverip" => $_SERVER['SERVER_ADDR'],
+		"filelocation" => $fullPath,
+		"fileserverpath" => $fileserverpath,
 		"replicaip" => $replicaip,
-		"replicalocation" => $replicapath,
-	    "size"=>$size,
-	    "version"=>$version,
-	    "dir_path"=>$_GET['dirpath']);
-		
-	$url = "http://".$_GET['managerserverip']."/manage/csc_http_put_inserttodb.php";
-	send($url, $post_data);
-	ob_end_clean();	// clean buffering data quietly
-	
- ?>   
-
-
+		"replicapath" => $replicapath,
+		"size" => $size,
+		"version" => $version);
+	if($status == "new")
+		$url = "http://".$_POST['managerserverip']."/manage/csc_http_put_inserttodb.php";
+	else
+		$url = "http://".$_POST['managerserverip']."/manage/csc_http_put_updatetodb.php";
+	$json = curlPost($url,$post_data,true);
+	if(!$json['result'])
+	{
+		if($status == "new")
+			WriteLog('cscHttpPutError', "File {$filename} with ID {$file_id} failed to insert DB!");
+		else
+			WriteLog('cscHttpPutError', "File {$filename} with ID {$file_id} failed to update DB!");
+		unlink($fullPath);
+		exit;
+	}
+	$result = array('result' => true, 'filename' => $filename, 'file_id' => $file_id, 'msg' => "File {$filename} with ID {$file_id} PUT Succeed!");
+	echo json_encode($result);
+}
+else
+{
+	WriteLog("'cscHttpPutError', File {$filename} with ID {$file_id} saved failedly!");
+	$result = array('result' => false,  'filename' => $filename, 'file_id' => $file_id, 'msg' => "File {$filename} with ID {$file_id} PUT Failed!");
+	echo json_encode($result);
+}
+?>
 

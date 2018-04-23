@@ -1,68 +1,80 @@
-<?php 
-	function send($url,$post_data) //Curl调用
-	{
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_POST, 1);
-	//curl_setopt($ch, CURLOPT_VERBOSE, 1);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 30); 
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-	$result=curl_exec($ch);
-	curl_close($ch);
-	return $result;
-	}
-	$method = $_GET['method'];
-	$owner = $_GET['owner']; //use useid replace owner
-	$dirpath = $_GET['dirpath']; //存储路径
-	$filename = $_GET['filename']; //文件名
-//TODO muti-version info
-	$version=$_GET['version']; //版本
-	//FDDM 
-	   $dirpath=$dirpath.$owner."/";
-	   $arr1=substr($filename,0,1);
-	   $arr1=md5($arr1);
-	   $arr2=substr($filename,1,1);
-	   $arr2=md5($arr2);
-	   //$dirpath=$dirpath.$arr1."/".$arr2."/";
-	   $target1=$dirpath.$arr1."/";
-	   $target2=$target1.$arr2."/";
-	   $fullPath=$target2.$filename;
+<?php
+/*
+* FS RESTFUL API - DELETE
+* author: zfan
+*/
 
-	//删除文件 @抑制报错信息
-	@$flag = unlink($fullPath);
-    
-	//delete empty dir
-	if($flag)
-	{
-		 if(dir_is_empty($target2)){
-		 	rmdir($target2);
-		 }
-		if(dir_is_empty($target1)){
-		 	rmdir($target1);
-		 }
-		echo "true";
-	}
-	else
-	{
-		echo 'false'; 
-	}
+require("../includes/fs.helper.inc.php");
 
-$url="http://".$_GET['managerserverip']."/manage/csc_http_delete_deletefromdb.php";
-$post_data=array(
-	'filename'=>$filename,
-    'userid'=>$owner
-);
-send($url,$post_data);
-function dir_is_empty($dir){ 
-	if($handle = opendir($dir)){  
-		while($item = readdir($handle)){   
-			if ($item != "." && $item != ".."){
-				return false;  } 
-			/*else{
-				return true;}*/
-		} 
+$method = $_POST['method'];
+$userid = $_POST['userid'];
+$fileserverpath = $_POST['fileserverpath'];
+$filename = $_POST['filename'];
+$file_id = $_POST['file_id'];
+$key = $_POST['key'];
+$ms_ip = $_POST['managerserverip'];
+// HA info
+$replicaip=$_POST['replicaip'];
+$replicapath=$_POST['replicapath'];
+$version=$_POST['version'];
+$dirpath=$fileserverpath.$userid."/";
+
+/*	// S3 write file 
+$fullPath = $dirpath.$file_id;
+*/
+/*	// SWIFT
+$arr=substr($file_id,-3);
+$dirpath=$dirpath.$arr."/";
+$fullPath=$dirpath.$file_id;
+*/
+
+// UDPM
+//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
+$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+$fullPath=$dirpath.$file_id;
+WriteLog('cscHttpDelete', " fileID: {$file_id}  fullPath: {$fullPath}");
+
+//Check whether legal
+$url = "http://{$ms_ip}/key.php" ;
+$data = array('key' => $key);
+$json = curlPost($url,$data,true);
+if(!$json['result'])
+{
+	WriteLog('cscHttpDeleteError', "File {$filename} with ID {$file_id} is deleting illegally!");
+	exit;
+}
+
+$size=filesize($fullPath);
+@$flag = unlink($fullPath);
+if($flag)
+{
+	//TODO delete empty directories
+
+	$post_data = array("file_id" => $file_id, "filename" => $filename, "userid" => $userid,	"size" => $size, "version" => $version);
+	$url = "http://".$ms_ip."/manage/csc_http_delete_deletefromdb.php";
+	$json = curlPost($url,$post_data,true);
+	if(!$json['result'])
+	{
+		WriteLog('cscHttpDeleteError', "File {$filename} with ID {$file_id} failed to delete DB!");
+		exit;
 	}
-	return true;
+	$post_data = array("file_id" => $file_id, "filename" => $filename, "userid" => $userid, "key" => $key, "managerserverip" => $ms_ip, "replicapath" => $replicapath);
+	$url = "http://".$replicaip."/www/csc_fileserver_http_deleteReplica.php";
+	$json = curlPost($url,$post_data,true);
+	if(!$json['result'])
+	{
+		WriteLog('cscHttpDeleteError', "File {$filename} with ID {$file_id} failed to delete replica!");
+		exit;
+	}
+	$result = array('result' => true, 'filename' => $filename, 'file_id' => $file_id, 'msg' => "File {$filename} with ID {$file_id} DELETE Succeed!");
+	WriteLog('cscHttpDelete', "File {$filename} with ID {$file_id} DELETE Succeed!");
+	echo json_encode($result);
+}
+else
+{
+	WriteLog('cscHttpDeleteError', "File {$filename} with ID {$file_id} unlink failedly!");
+	$result = array('result' => false,  'filename' => $filename, 'file_id' => $file_id, 'msg' => "File {$filename} with ID {$file_id} DELETE Failed!");
+	echo json_encode($result);
 }
 ?>
+
