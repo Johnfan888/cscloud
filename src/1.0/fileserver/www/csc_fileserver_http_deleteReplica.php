@@ -24,8 +24,7 @@ $fullPath=$dirpath.$file_id;
 */
 
 // UDPM
-//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
-$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+$dirpath=$dirpath.udpm_dir($file_id);	//4 layers
 $fullPath=$dirpath.$file_id;
 WriteLog('cscHttpDelete', " Replica fileID: {$file_id}  fullPath: {$fullPath}");
 
@@ -42,7 +41,7 @@ if(!$json['result'])
 @$flag = unlink($fullPath);
 if($flag)
 {
-	//TODO delete empty directories
+	udpm_rmdir($fullPath, $file_id);
 	$result = array('result' => true, 'filename' => $filename, 'file_id' => $file_id, 'msg' => "Replica File {$filename} with ID {$file_id} DELETE Succeed!");
 	WriteLog('cscHttpDelete', "Replica File {$filename} with ID {$file_id} DELETE Succeed!");
 	echo json_encode($result);
@@ -55,4 +54,3 @@ else
 	echo json_encode($result);
 }
 ?>
-

@@ -6,6 +6,8 @@
 
 date_default_timezone_set("PRC");
 
+define("ID_LAYER", "4");	//or 2
+
 //记录日志
 function WriteLog($logDirName, $msg)
 {
@@ -34,29 +36,27 @@ function UniqueName()
 }
 
 //UDPM (Uniform Data Placement Method)
-function udpm_dir4($id)
+function udpm_dir($file_id, $len=1)
 {
-	$arr=str_split($id,8);
-	$arr0=substr($arr[0], -1);
-	$arr1=substr($arr[1], -1);
-	$arr2=substr($arr[2], -1);
-	$arr3=substr($arr[3], -1);
-	$arr0=md5($arr0);
-	$arr1=md5($arr1);
-	$arr2=md5($arr2);
-	$arr3=md5($arr3);
-	$arr=$arr0."/".$arr1."/".$arr2."/".$arr3."/";
-	return $arr;
+	$arr = str_split($file_id, 8);
+	$path = "";
+	for($layer = 0; $layer < ID_LAYER; $layer++)
+	{
+		$segPath = md5(substr($arr[$layer], -$len));
+		$path = $path.$segPath."/";
+	}
+	return $path;
 }
 
-function udpm_dir2($id)
+function udpm_rmdir($fullPath, $file_id)
 {
-	$arr0=substr($id,0,1);
-	$arr0=md5($arr0);
-	$arr1=substr($id,1,1);
-	$arr1=md5($arr1);
-	$arr=$arr0."/".$arr1."/";
-	return $arr;
+	$fullPathLen = strlen($fullPath);
+	$segLen = strlen($file_id);
+	for($layer = 0; $layer < ID_LAYER; $layer++)
+	{
+		@rmdir(substr($fullPath, 0, $fullPathLen - $segLen -1));
+		$fullPathLen = $fullPathLen - $segLen -1;
+	}
 }
 
 function writeFile($filename)

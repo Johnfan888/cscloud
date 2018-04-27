@@ -29,8 +29,7 @@ $fullPath=$dirpath.$file_id;
 */
 
 // UDPM
-//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
-$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+$dirpath=$dirpath.udpm_dir($file_id);	//4 layers
 $fullPath=$dirpath.$file_id;
 WriteLog('cscHttpDelete', " fileID: {$file_id}  fullPath: {$fullPath}");
 
@@ -44,12 +43,11 @@ if(!$json['result'])
 	exit;
 }
 
-$size=filesize($fullPath);
 @$flag = unlink($fullPath);
 if($flag)
 {
-	//TODO delete empty directories
-
+	udpm_rmdir($fullPath, $file_id);
+	$size=filesize($fullPath);
 	$post_data = array("file_id" => $file_id, "filename" => $filename, "userid" => $userid,	"size" => $size, "version" => $version);
 	$url = "http://".$ms_ip."/manage/csc_http_delete_deletefromdb.php";
 	$json = curlPost($url,$post_data,true);

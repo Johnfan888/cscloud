@@ -39,8 +39,7 @@ $fullPath=$dirpath.$file_id;
 */
 
 // UDPM
-//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
-$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+$dirpath=$dirpath.udpm_dir($file_id);	//4 layers
 if(!is_dir($dirpath))
 {
 	WriteLog('cscHttpGetError', "File {$filename} with ID {$file_id} not exist!");
@@ -69,4 +68,3 @@ WriteLog('cscHttpGet', " Read length $readLen for file {$filename} with ID {$fil
 //@readfile($fullPath);
 //@read_File($fullPath);
 ?>
-

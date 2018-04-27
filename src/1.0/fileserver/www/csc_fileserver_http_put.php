@@ -43,8 +43,7 @@ else
 	// Multi-version support may not need for ingesting from FS API
 	WriteLog('cscHttpPut', " existing file. file ID: {$file_id}");
 }
-//$dirpath=$dirpath.udpm_dir2($file_id);	//2 layers
-$dirpath=$dirpath.udpm_dir4($file_id);	//4 layers
+$dirpath=$dirpath.udpm_dir($file_id);	//4 layers
 if(!is_dir($dirpath)) {
 	mkdir($dirpath, 0755, "-p");
 }
@@ -100,4 +99,3 @@ else
 	echo json_encode($result);
 }
 ?>
-

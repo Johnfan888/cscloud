@@ -27,7 +27,7 @@ function downloadFile($url, $file="", $data="", $timeout=60)
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-	if(!empty($data))  //GET
+	if(!empty($data))  //POST
 	{
 		curl_setopt($ch, CURLOPT_POST, TRUE);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

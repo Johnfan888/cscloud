@@ -82,16 +82,18 @@ function downloadFile($url, $file="", $data="", $timeout=60)
 	if(!curl_error($ch))
 	{
 		$info = curl_getinfo($ch);
-		//FIXME Why data from curl add one more byte?
+		//FIXME Why in some case data from curl add one more byte?
 		$curlsize = $info['size_download'];
 		$fp = fopen($file, 'w');
-		$writtenLen = fwrite($fp, $output, $curlsize - 1);
+		$writtenLen = fwrite($fp, $output, $curlsize);
+		//$writtenLen = fwrite($fp, $output, $curlsize - 1);
 		fclose($fp);
 		$filesize = filesize($file);
 		curl_close($ch);
 		echo "File $file download writtenLen:$writtenLen  file size:$filesize\n";
-		if($filesize != ($curlsize - 1))
-		{
+		//if($filesize != ($curlsize - 1))
+		if($filesize != $curlsize)
+{
 			echo "not integrated. Please download again.\n";
 			return false;
 		}
@@ -130,7 +132,8 @@ if($method == "Put")
 		"replicapath" => $json['replicapath'],
 		"managerserverip" => $json['managerserverip'],
 		"key" => $json['key'],
-		"file" => new CURLFile("{$json['filename']}"),
+		"file" => new CURLFile("{$json['filename']}"),	//For php version 5.5.16 or above
+		//'file' => "@{$json['filename']}"	// For php version 5.2.6 (default in sles11sp1)
 		"totalsize" => $json['totalsize'],
 		"usedsize" => $json['usedsize']);
 	$json = curlPost($url,$data,true);
