@@ -48,13 +48,28 @@ function udpm_dir($file_id, $len=1)
 	return $path;
 }
 
+function dir_is_empty($dir)
+{ 
+	if($handle = opendir($dir)){  
+		while($item = readdir($handle)){   
+			if ($item != "." && $item != ".."){
+				return false;  } 
+			/*else{
+				return true;}*/
+		} 
+	}
+	return true;
+}
+
 function udpm_rmdir($fullPath, $file_id)
 {
 	$fullPathLen = strlen($fullPath);
 	$segLen = strlen($file_id);
 	for($layer = 0; $layer < ID_LAYER; $layer++)
 	{
-		@rmdir(substr($fullPath, 0, $fullPathLen - $segLen -1));
+		$dir = substr($fullPath, 0, $fullPathLen - $segLen -1);
+		if(!dir_is_empty($dir)) return;
+		@rmdir($dir);
 		$fullPathLen = $fullPathLen - $segLen -1;
 	}
 }
@@ -93,7 +108,7 @@ function read_File($filename)
 	fclose($fp);
 	fclose($fp_output);
 }
- 
+
 //Curl POST Call
 function curlPost($url,$data,$isJSON=true,$timeout=60)
 {

@@ -50,17 +50,18 @@ if($filenum > 0)	//user found
 				//Check whether primary server of this file is normal
 				$sql = "select status from T_Server where server_ip='{$fileLocation['server_ip']}'";
 				$sqlData = $db->FetchAssocOne($sql);
-				if($sqlData['status']==1)
+				if($sqlData['status'] == 1)
 				{
 					$fileserverip = $fileLocation['server_ip'];
 					$fileserverpath = $fileLocation['file_path'];
 					//Check whether secondary server of this file is normal
 					$sql = "select status from T_Server where server_ip='{$fileLocation['ha_server_ip']}'";
 					$sqlData = $db->FetchAssocOne($sql);
-					if($sqlData['status']==1)
+					if($sqlData['status'] == 1)
 					{
 						$replicaip = $fileLocation['ha_server_ip'];
 						$replicapath = $fileLocation['ha_file_path'];
+						$isReplicated = $fileLocation['flag'];
 					}
 					else
 					{	
@@ -89,10 +90,11 @@ if($filenum > 0)	//user found
 					"replicapath" => $replicapath,
 					"managerserverip" => $managerserverip,
 					"userid" => $userid,
-					"filename" => rawurlencode($filename),
+					"filename" => $filename,
 					"file_id" => $file_id,
-					"version" => $version);
-				WriteLog('cscHttpDelete', " status:$status filename:$filename fileID:$file_id user:$user ip:$fileserverip path:$fileserverpath");
+					"version" => $version,
+					"isReplicated" => $isReplicated);
+				WriteLog('cscHttpDelete', " status:$status isReplicated:$isReplicated filename:$filename fileID:$file_id user:$user ip:$fileserverip path:$fileserverpath");
 				echo json_encode($result);
 			}
 			else

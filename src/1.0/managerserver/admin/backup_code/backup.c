@@ -29,9 +29,9 @@ main()
 
 	while(1)
 	{
-		sleep(atoi(name) * 60); 
-		//sleep(5); 
-		system("/usr/bin/sudo /usr/bin/php /srv/www/htdocs/backup.php");
+		//sleep(atoi(name) * 60); 
+		sleep(5); 
+		//system("/usr/bin/sudo /usr/bin/php /srv/www/htdocs/backup.php");
+		system("/usr/bin/sudo /usr/bin/php /srv/www/htdocs/manage/csc_manage_replicate.php");
 	}
 }
-

@@ -41,7 +41,7 @@ $timespan = $c->_get("Time_interval");
 
 $smarty->assign('pwd', $password);
 $smarty->assign('double', $double);
-$smarty->assign('timepsan', $timespan );
+$smarty->assign('timespan', $timespan );
 
 $smarty->display('backup.html');
 

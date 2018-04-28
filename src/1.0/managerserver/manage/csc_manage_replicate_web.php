@@ -1,6 +1,6 @@
 <?php
 /*
-* MS File Replication
+* MS File Replication Support for Browser Operation
 * author: zfan
 */
 
@@ -15,7 +15,7 @@ $sql = "select * from T_FileLocation where flag = 0 order by server_ip";
 $files = $db->FetchAssoc($sql);
 
 WriteLog('cscReplicate', "Begin replication");
-//echo "Begin replication\n";
+echo "Begin replication\n";
 if($files)
 {
 	//Get key
@@ -27,7 +27,7 @@ if($files)
 	foreach($files as $row)
 	{
 		WriteLog('cscReplicate', "Replicating file {$row['file_id']} MSIP $ms_ip ...");
-		//echo "Replicating file {$row['file_id']} ...\n";
+		echo "Replicating file {$row['file_id']} ...\n";
 		$data = array(
 			'uid' => $row['user_id'],
 			'path' => $row['file_path'],
@@ -43,19 +43,19 @@ if($files)
 			$sql = "update T_FileLocation set flag = 1 where file_id = '{$row['file_id']}'";
 			$db->Query($sql);
 			WriteLog('cscReplicate', "Replicating file {$row['file_id']} succeed");
-			//echo "Replicating file {$row['file_id']} succeed\n";
+			echo "Replicating file {$row['file_id']} succeed\n";
 		}
 		else
 		{
 			WriteLog('cscReplicateError', "Replicating file {$row['file_id']} failed");
-			//echo "Replicating file {$row['file_id']} failed\n";		}
+			echo "Replicating file {$row['file_id']} failed\n";		}
 	}
 }
 else
 {
 	WriteLog('cscReplicate', "No files to be replicated");
-	//echo 'No files to be replicated\n';
+	echo 'No files to be replicated\n';
 }
 WriteLog('cscReplicate', "End replication");
-//echo "End replication\n";
+echo "End replication\n";
 ?>

@@ -22,7 +22,7 @@ function WriteLog($logDirName, $msg)
 	 $fp = fopen($logpath . date('Y-m-d') . '.txt', 'ab');
 	 fwrite($fp, 'time:' . date('Y-m-d H:i:s'));
 	 fwrite($fp, "\n");
-	 fwrite($fp, "message : {$msg}");
+	 fwrite($fp, "<message>  {$msg}");
 	 fwrite($fp, "\n");
 	 fwrite($fp, "\n");
 	 fclose($fp);

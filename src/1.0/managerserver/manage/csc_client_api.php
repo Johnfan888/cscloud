@@ -5,10 +5,13 @@
  */
 
 $method=$argv[1];
-$filename="/data/testData/testfile.txt";
-$user="zfan@istl.chd.edu.cn";
-//$user="liang@istl.pcd.com";
-$ms_ip="192.168.1.116";
+$filename=$argv[2];
+$user=$argv[3];
+$ms_ip=$argv[4];
+//$method=Put;
+//$filename="/data/testData/testfile.txt";
+//$user="zfan@istl.chd.edu.cn";
+//$ms_ip="192.168.1.110";
 
 //Curl POST Call
 function curlPost($url,$data,$isJSON=true,$timeout=60)
@@ -224,7 +227,8 @@ if($method == "Delete")
 		"file_id" => $json['file_id'],
 		"version" => $json['version'],
 		"managerserverip" => $json['managerserverip'],
-		"key" => $json['key']);
+		"key" => $json['key'],
+		"isReplicated" => $json['isReplicated']);
 	$json = curlPost($url,$data,true);
 	if($json['result'])
 	{
@@ -236,4 +240,3 @@ if($method == "Delete")
 	}
 }
 ?>
-

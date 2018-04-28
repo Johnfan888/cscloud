@@ -49,8 +49,8 @@ if($flag)
 else
 {
 	WriteLog('cscHttpDeleteError', "Replica File {$filename} with ID {$file_id} unlink failedly! not exist?");
-	//return true here
-	$result = array('result' => true,  'filename' => $filename, 'file_id' => $file_id, 'msg' => "Replica File {$filename} with ID {$file_id} unlink failedly! not exist?");
+	//return true here?
+	$result = array('result' => false,  'filename' => $filename, 'file_id' => $file_id, 'msg' => "Replica File {$filename} with ID {$file_id} unlink failedly! not exist?");
 	echo json_encode($result);
 }
 ?>
