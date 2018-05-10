@@ -1,2 +1,0 @@
-*/1 * * * * /usr/bin/php /srv/www/htdocs/configmanager/read_monitor_log.php
-*/5 * * * * /usr/bin/mrtg /srv/www/htdocs/mrtg/mrtg.cfg
