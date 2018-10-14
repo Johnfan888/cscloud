@@ -67,7 +67,7 @@ if(!empty($_GET['id']))
 				$db->Query($sql);
 			}
 
-			 $url = "http://{$ip}/download.php" ;
+			 $url = "http://{$ip}/fs_download.php" ;
 			 $name = rawurlencode($file['file_name']);
 
 			//查看请求的文件的版本，如果是v1直接下载，如果高于v1，则需要将文件先恢复，然后在下载

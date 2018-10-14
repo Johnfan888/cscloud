@@ -1,5 +1,6 @@
 <?php
 		session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "尚未登陆！";
@@ -13,7 +14,8 @@ fclose($fp);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
- <head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
   <title>欢迎使用</title>
   <link href="css/common.css" type="text/css" rel="stylesheet" />
   <link href="css/frame_main.css" type="text/css" rel="stylesheet" />
@@ -25,7 +27,8 @@ fclose($fp);
 		
 		// For common case that Zabbix has been installed and configured well;
 		// Copy Zabbix front-end in Web working directory may not be good 
-		window.open("/zabbix");
+		//window.open("/zabbix");
+		window.open("http://192.168.1.225:8000/main/main")
 	}
   </script>
  </head>
@@ -93,7 +96,7 @@ fclose($fp);
 
 					<div class="page-list" id="js_data_list_outer">
 						<div style="min-height:100%;_height:100%;cursor:default; background:#fff;" id="js_data_list"> 
-							<P>欢迎使用服务器配置管理系统，联系方式：echo0104@126.com</P>
+							<P>*****welcome*****</P>
 						</div>
 					</div>
 

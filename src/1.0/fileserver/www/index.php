@@ -22,6 +22,6 @@ else if($_GET['flag']=='delete')
 }*/
 else if($_GET['flag']=='newdir')
 {
-   header("location:newdir.php?dir=".rawurlencode($_GET["dir"])."&parent_id=".rawurlencode($parent_id)."&dirpath=".$_GET["dirpath"]."&owner=".$username."&replicaip=".$_GET['replicaip']."&replicapath=".$_GET['replicapath']);
+   header("location:fs_newdir.php?dir=".rawurlencode($_GET["dir"])."&parent_id=".rawurlencode($parent_id)."&dirpath=".$_GET["dirpath"]."&owner=".$username."&replicaip=".$_GET['replicaip']."&replicapath=".$_GET['replicapath']);
 }
 ?>

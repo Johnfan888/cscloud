@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	/*header('Content-Type:text/html;charset=gb2312');
 	if(!empty($_COOKIE['name']) and !is_null($_COOKIE['name'])){
 		$_SESSION['name'] = $_COOKIE['name'];

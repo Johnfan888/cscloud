@@ -7,6 +7,19 @@ WWW_DIR=/srv/www/htdocs
 MS_TARFILE=cscloud_ms-1.0.tar.gz
 FS_TARFILE=cscloud_fs-1.0.tar.gz
 
+# Get default web user and group for different OS
+if [ $1 == "rh" ]; then
+	defaultWebUser=apache
+	defaultWebGroup=apache
+elif [ $1 == "suse" ]; then
+	defaultWebUser=wwwrun
+	defaultWebGroup=www
+else
+	echo "Please give the os type (rh/suse)"
+	exit 1
+fi
+defaultWebUseGroup=$defaultWebUser.$defaultWebGroup
+
 cleanup()
 {
 	echo "cleaning up ..."
@@ -33,16 +46,16 @@ if [ $? != "0" ]; then
 	cleanup
 fi
 cd $WWW_DIR
-chown wwwrun.www * -R
+chown $defaultWebUseGroup * -R
 
 cd $INSTALL_DIR
-chown wwwrun.www * -R
+chown $defaultWebUseGroup * -R
 mv cscloud/src/1.0/configmanager/scripts/csc_funcs .
 mv cscloud/src/1.0/configmanager/scripts/csc_mfs_tar_install.sh .
 mv cscloud/src/1.0/configmanager/scripts/csc_mfs_file_install.sh .
 mv cscloud/src/1.0/configmanager/scripts/csc_mfs_exec_script.sh .
 mkdir -p $AD_DESTDIR
-chown wwwrun.www $AD_DESTDIR -R
+chown $defaultWebUseGroup $AD_DESTDIR -R
 cp -dpR cscloud/src/1.0/configmanager/* $AD_DESTDIR/
 if [ $? != "0" ]; then
 	echo "ERROR: Copy files to ad failed."
@@ -70,7 +83,7 @@ fi
 cd $INSTALL_DIR
 
 # For single NIC
-file=`find /etc/sysconfig/network -name ifcfg-eth*`
+file=`find /etc/sysconfig/network-scripts -name ifcfg-ens*`
 adip=`grep ^IPADDR $file | awk -F '=' '{print $2}'`
 
 echo "Successfully, please enter admin website with $adip"

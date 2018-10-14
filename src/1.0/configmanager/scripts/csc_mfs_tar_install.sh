@@ -50,7 +50,12 @@ exec_ssh $DIP $DPASS "sed -i 's/ServerActive=127.0.0.1/ServerActive=$ZSIP/g' $za
 exec_ssh $DIP $DPASS "sed -i 's/# UnsafeUserParameters=0/UnsafeUserParameters=1/g' $zabbix_FILE"
 
 exec_ssh $DIP $DPASS "sed -i '60a EnableRemoteCommands=1' $zabbix_FILE"
-
+#---
+exec_ssh $DIP $DPASS "mkdir /etc/zabbix/script"
+exec_ssh $DIP $DPASS "mkdir /etc/zabbix/zabbix_agentd.d"
+exec_ssh $DIP $DPASS "sed -i '250a Include=/etc/zabbix/zabbix_agentd.d/' $zabbix_FILE"
+exec_ssh $DIP $DPASS "sed -i '234a AllowRoot=1' $zabbix_FILE"
+#---
 exec_ssh $DIP $DPASS "chkconfig --level 3,5 zabbix-agentd on" 
 
 exec_ssh $DIP $DPASS "service zabbix-agentd start"

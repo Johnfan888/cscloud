@@ -1,5 +1,6 @@
 <?php
 require("../configure_class.php");
+header('Content-Type:text/html;charset=gb2312');
 							$c = new Configuration();
 							$c->configFile="/srv/www/htdocs/configmanager/config/mailinfo_config.txt";
 							$c->_construct();

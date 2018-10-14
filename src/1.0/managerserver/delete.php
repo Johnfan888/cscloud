@@ -89,7 +89,7 @@ if(!empty($_GET['id']))
 						$path= rtrim($path, '/');
 
 						 //curl请求删除远端服务器文件
-						 $url = "http://{$ip}/delete.php" ;
+						 $url = "http://{$ip}/fs_delete.php" ;
 						 $data = array('path' => $path, 'id' => $info['file_id'], 'uid' => $_COOKIE['id']);
 
 						 $ch = curl_init();
@@ -127,7 +127,7 @@ if(!empty($_GET['id']))
 								 $urlpath = "{$path}/{$_COOKIE['id']}/{$info['file_id']}";
 
 								 //curl请求删除远端服务器副本文件
-								 $url = "http://{$ip}/delete.php" ;
+								 $url = "http://{$ip}/fs_delete.php" ;
 								 $data = array('path' => $path, 'id' => $info['file_id'], 'uid' => $_COOKIE['id']);
 
 								 $ch = curl_init();
@@ -194,7 +194,7 @@ if(!empty($_GET['id']))
 					$path= rtrim($path, '/');
 
 					 //curl请求删除远端服务器文件
-					 $url = "http://{$ip}/delete.php" ;
+					 $url = "http://{$ip}/fs_delete.php" ;
 					 $data = array('path' => $path, 'id' => $id, 'uid' => $_COOKIE['id']);
 
 					 $ch = curl_init();
@@ -231,7 +231,7 @@ if(!empty($_GET['id']))
 							$urlpath = "{$path}/{$_COOKIE['id']}/{$id}";
 
 							 //curl请求删除远端服务器副本文件
-							 $url = "http://{$ip}/delete.php" ;
+							 $url = "http://{$ip}/fs_delete.php" ;
 							 $data = array('path' => $path, 'id' => $info['file_id'], 'uid' => $_COOKIE['id']);
 
 							 $ch = curl_init();
@@ -295,7 +295,7 @@ if(!empty($_GET['id']))
 								$path= rtrim($path, '/');
 
 								 //curl请求删除远端服务器文件
-								 $url = "http://{$ip}/delete.php" ;
+								 $url = "http://{$ip}/fs_delete.php" ;
 								 $data = array('path' => $path, 'id' => $base['file_id'], 'uid' => $_COOKIE['id']);
 
 								 $ch = curl_init();
@@ -330,7 +330,7 @@ if(!empty($_GET['id']))
 										$urlpath = "{$path}/{$_COOKIE['id']}/{$base['file_id']}";
 
 										 //curl请求删除远端服务器副本文件
-										 $url = "http://{$ip}/delete.php" ;
+										 $url = "http://{$ip}/fs_delete.php" ;
 										 $data = array('path' => $path, 'id' => $info['file_id'], 'uid' => $_COOKIE['id']);
 
 										 $ch = curl_init();

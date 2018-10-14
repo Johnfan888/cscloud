@@ -135,8 +135,8 @@ if($method == "Put")
 		"replicapath" => $json['replicapath'],
 		"managerserverip" => $json['managerserverip'],
 		"key" => $json['key'],
-		"file" => new CURLFile("{$json['filename']}"),	//For php version 5.5.16 or above
-		//'file' => "@{$json['filename']}"	// For php version 5.2.6 (default in sles11sp1)
+		//"file" => new CURLFile("{$json['filename']}"),    //For php version 5.5.16 or above
+		'file' => "@{$json['filename']}",          // For php version 5.2.6 (default in sles11sp1)
 		"totalsize" => $json['totalsize'],
 		"usedsize" => $json['usedsize']);
 	$json = curlPost($url,$data,true);

@@ -3,6 +3,9 @@ $method=$_POST["monitoring_method"]; //迁移方法
 $Inquire_time=trim($_POST["inquire_time"]);//时间间隔
 $Loading_threshold=trim($_POST["loading_threshold"]);//负载
 $Maxloading_threshold=trim($_POST["maxloading_threshold"]);//最大负载阈值
+//----修改cmc阈值cmc_threshold.py
+system("python cmc_threshold.py $Loading_threshold");
+//
 require("configure_class.php");
 $c = new Configuration();
 $c->configFile="/srv/www/htdocs/configmanager/config/config.txt"; //存储迁移的方式

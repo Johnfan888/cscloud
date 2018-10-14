@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "尚未登陆！";
@@ -31,7 +32,8 @@ require("conn/conn.php");
    }
    function monitor(){
 		//window.open("../zabbix1/dashboard.php");
-		window.open("/zabbix");
+		window.open("http://192.168.1.225:8000/main/main");
+
 	}
    function mail(){
 	   	window.location.href="./sendmail/mailinfo_config.php";
@@ -108,20 +110,20 @@ require("conn/conn.php");
 							$c->_construct();?>
 							<form method="post" action="monitor_method_change.php">
 								<p>
-									当前的监控迁移方式("0"为自动，"1"为手动)
-									<input type="text" name="monitoring_method" value="<?php echo $c->_get("Method") ?>"/>
+									<!--当前的监控迁移方式("0"为自动，"1"为手动)-->
+									<input type="text" name="monitoring_method" value="<?php echo $c->_get("Method") ?>" style="display:none"/>
 								</p>
 								<p>
 									迁移负载阈值(格式：0.01)
 									<input type="text" name="loading_threshold" value="<?php echo $c->_get("Loading_threshold") ?>"/>
 								</p>
 								<p>
-									迁移查询间隔时间(分钟，格式：5)
-									<input type="text" name="inquire_time" value="<?php echo $c->_get("Inquire_time") ?>"/>
+									<!--迁移查询间隔时间(分钟，格式：5)-->
+									<input type="text" name="inquire_time" value="<?php echo $c->_get("Inquire_time") ?>" style="display:none"/>
 								</p>
 								<p>
 								</p>
-									系统最小负载阈值(格式：0.01)
+									系统最大负载阈值(格式：0.01)
 									<input type="text" name="maxloading_threshold" value="<?php echo $c->_get("MaxLoading_threshold") ?>"/>
 								<p>
 									<input type="submit" value="修改">
@@ -130,7 +132,7 @@ require("conn/conn.php");
 							</form>
 								<p>
 								  <input type="button" onClick="openNew()" value="开始监控负载迁移"> 
-								  <input type="button" onClick="watchGragh()" value="查看各文件服务器的负载图"> 
+								  <input type="button" onClick="watchGragh()" value="查看各文件服务器的负载图" style="display:none"> 
 								</p>
 								<p> 
 									<input type="button" onClick="seeLog()" value="查看迁移日志"> 

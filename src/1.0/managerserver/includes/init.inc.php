@@ -14,7 +14,8 @@ session_start();
 
 
 //设定时区
-date_default_timezone_set('Asia/Shanghai');
+//date_default_timezone_set('Asia/Shanghai');
+date_default_timezone_set('PRC');
 
 //设置所有页面以utf-8的中文编号显示
 header("Content-type: text/html;charset=utf-8");

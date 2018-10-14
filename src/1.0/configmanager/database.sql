@@ -36,7 +36,22 @@ install_flag boolean default 0,
 PRIMARY KEY  (id)
 )ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 
-
+/*-----------*/
+CREATE TABLE spare_node(
+id tinyint(2) NOT NULL auto_increment,
+ip_address varchar(15) NOT NULL,
+status varchar(10) NOT NULL,
+cpu varchar(50) NOT NULL,
+memory varchar(50) NOT NULL,
+disk varchar(50) NOT NULL,
+userfilepath varchar(1024),
+post_size bigint NOT NULL,
+loading float,
+transfer_status boolean,
+install_flag boolean default 0,
+PRIMARY KEY  (id)
+)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+/*-----------*/
 
 CREATE TABLE log_transfer(
 id int(4) NOT NULL auto_increment,
@@ -66,3 +81,4 @@ mi_iprange varchar(50) not null,
 mi_desc varchar(30),
 primary key(mi_id, mi_mib)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

@@ -70,7 +70,7 @@ $(function(){
 					$("#file_upload").uploadify({
 					"auto" : false,
 					"swf"      : "plugin/uploadify.swf",
-					"uploader" : "http://" + callback.to + "/upload.php",
+					"uploader" : "http://" + callback.to + "/fs_upload.php",
 					"buttonText" : "请选择文件(可多选)",
 					'fileObjName' : 'the_files',
 					"width" : 200,

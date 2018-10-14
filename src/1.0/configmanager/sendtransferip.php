@@ -33,9 +33,10 @@ mysql_query($sql,$conne->conn);
 
 //获取本地ip
 		$ip=exec("/bin/sh getlocalip.sh"); //获得ip
-		$array=explode("/",$ip);
-		$localip=$array[0];
-		$localserverip=trim($localip,"\'");
+		//$array=explode("/",$ip);
+		//$localip=$array[0];
+		$localserverip=trim($ip,'"');
+		//$localserverip=trim($localip,"\'");
 		$get_url="http://".$webserverip."/manage/receive_transfer_ip.php?originip=".$originip."&targetip=".$targetip."&configmanagerip=".$localserverip."&userid=".$userid;
 		$ch = curl_init($get_url) ; 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; 

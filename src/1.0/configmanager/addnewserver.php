@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "尚未登陆！";
@@ -98,12 +99,11 @@
 								<th>新增服务器</th><th></th>
 								</tr>
 								<tr>
-								<th>IP</th><th><input name="ip" type="text"></th>
+								<th>IP</th><th><input name="ip" type="text"></th><th>--<input name="ip2" type="text">(支持批量，可以只填写一个)</th>
 								</tr>
 								<tr>
 								<th>STATUS</th><th>
 								  <input name="status" type="text" > 
-								  (file/manager)
 								  </th>
 								</tr>
 								<tr>
@@ -117,11 +117,20 @@
 								</tr>
 								<th>USREFILEPATH</th>
 								<th><input name="userfilepath" type="text" >
-								(以“/”开头和结束manager不需填写)</th>
+								</th>
 								</tr>
-								<th>POST_SIZE(单位：M)</th>
+								<th>POST_SIZE(unit:MB)</th>
 								<th><input name="postsize" type="text" >
-								(若不填默认为1G=1000M)</th>
+								</th>
+								</tr>
+								</tr>
+								<th>  选择用途                 </th>
+								<th>
+								<select name="use" style="width:174px">
+								<option name="new" value="1">立即使用</option>
+								<option name="later" value="2">备用</option>
+								</select> 
+								</th>
 								</tr>
 								<tr>
 								<th colspan="2"><input  type="submit" name="添加" value="添加"/></th>

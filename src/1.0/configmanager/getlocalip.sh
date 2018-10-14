@@ -1,6 +1,6 @@
 #!/bin/sh
 
-file=`find /etc/sysconfig/network -name ifcfg-eth*`
+file=`find /etc/sysconfig/network-scripts -name ifcfg-ens*`
 adip=`grep ^IPADDR $file | awk -F '=' '{print $2}'`
 
 echo "$adip"

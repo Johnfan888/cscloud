@@ -29,7 +29,7 @@ if($backups)
 
 		 //逐条备份
 		 $data = array('uid' => $row['user_id'], 'path' => rtrim($row['file_path'], '/'), 'id' => $row['file_id'], 'ha_ip' => $row['ha_server_ip'], 'ha_path' => $row['ha_file_path'], 'ip' => $_SERVER['SERVER_ADDR'], 'key' => $key);
-		 $url = "http://{$row['server_ip']}/backup.php" ;
+		 $url = "http://{$row['server_ip']}/fs_backup.php" ;
 		 $curl_opts[CURLOPT_URL] = $url;
 		 $curl_opts[CURLOPT_HEADER] = false;
 		 $curl_opts[CURLOPT_RETURNTRANSFER] = true;

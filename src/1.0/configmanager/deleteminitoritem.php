@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']==""){
 		echo "ÉÐÎ´µÇÂ¼";
 	}

@@ -1,4 +1,5 @@
-<?php 
+<?php
+header('Content-Type:text/html;charset=gb2312');
 //选择需要迁移文件的服务器（负载最高的）
 class TransferServer
 {
@@ -7,11 +8,19 @@ class TransferServer
 	var $header;
 	function TransferServer(){
 		$ip=exec("/bin/sh  /srv/www/htdocs/configmanager/getlocalip.sh");
-		$array=explode("/",$ip);
-		$localip=$array[0];
-		$localip=trim($localip,"\'");
+//		$array=explode("/",$ip);
+//		$localip=$array[0];
+		$localip=trim($ip,'"');
+
+     	//exec("/bin/sh  /srv/www/htdocs/configmanager/getlocalip.sh",$array);
+        //echo $array[0];
+        //$localip=explode("/",$array[0]);
+        //$localip=$localip[0];
+        //$localip=trim($localip,"\'");
+		//echo $localip;
+
+
 		$this->serverip=$localip; 
-		//$this->url="http://".$this->serverip."/zabbix1/api_jsonrpc.php";
 		$this->url="http://".$this->serverip."/zabbix/api_jsonrpc.php";
 		$this->header=array("Content-type: application/json-rpc");
 	}
@@ -90,23 +99,45 @@ class TransferServer
 									$result=self::Curl($data);
 									$result=$result->result;
 									$fspusedvalue=$result[0]->value;
-									if( $j==0 || $maxvalue > $fspusedvalue){ 
+//                                    $aa=$result[0]->value;
+                                 //找最小
+									if( $j==0 || $maxvalue > $fspusedvalue){
 										$maxvalue=$fspusedvalue;
 										$maxhostid=$hostid[$j];
 									}
 									else{
 										$maxvalue=$maxvalue;
-										$maxhostid=$maxhostid;	
+										$maxhostid=$maxhostid;
+									}
+
+									//-----------找最大
+									if( $j==0 || $maxmaxvalue < $fspusedvalue){
+										$maxmaxvalue=$fspusedvalue;
+//										$maxhostid=$hostid[$j];
+									}
+									else{
+										$maxmaxvalue=$maxmaxvalue;
+//										$maxhostid=$maxhostid;
 									}
 								}
-								//取最大负载值
+
+
+								//取最大负载值!!!
+								//-----------------$maxvalue最小负载！！！！
 								require('configure_class.php');
 								$c=new Configuration;
 								$c->configFile="/srv/www/htdocs/configmanager/config/config.txt";
 								$c->_construct();
 								$loading=$c->_get("MaxLoading_threshold");
 								$loading=$loading*100;
-								if($loading <= $maxvalue){
+
+
+								$load_threshold=$c->_get("Loading_threshold");
+								$load_threshold=$load_threshold*100;
+								if($load_threshold >= $maxmaxvalue){
+								    $result='needless';
+								}
+								elseif($loading <= $maxvalue){
 									$result='loadexceed';
 								}
 								else{
@@ -356,6 +387,15 @@ function selectuser($originip)  //查找用户
 		fclose($fp);
 		return $menu["user_id"];
 	}
+
+
 }
+
+
+
+
+//
+//$Boy = new TransferServer();
+//$Boy -> TransferServer();
 
 ?>

@@ -4,7 +4,7 @@
 * author: zfan
 */
 
-require("../includes/fs.helper.inc.php");
+require("../fs_includes/fs.helper.inc.php");
 
 $method = $_POST['method'];
 $userid = $_POST['userid'];

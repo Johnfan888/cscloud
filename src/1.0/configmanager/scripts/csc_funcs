@@ -17,9 +17,9 @@ exec_ssh()
 		spawn ssh root@$IP $COMM
 		expect \"(yes/no)?\" {
 			send \"yes\r\"
-			expect \"Password:\"
+			expect -nocase \"Password:\"
 				send \"$PASSWD\r\"
-		} \"Password:\" {
+		} -nocase \"Password:\" {
 			send \"$PASSWD\r\"
 		} eof {
 			exit
@@ -41,9 +41,9 @@ exec_scp()
 		spawn scp -r $S_FILE root@$IP:$D_FILE
 		expect \"(yes/no)?\" {
 			send \"yes\r\"
-			expect \"Password:\"
+			expect -nocase \"Password:\"
 				send \"$PASSWD\r\"
-		} \"Password:\" {
+		} -nocase \"Password:\" {
 			send \"$PASSWD\r\"
 		} eof {
 			exit

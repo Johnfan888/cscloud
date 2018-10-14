@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "ÉÐÎ´µÇÂ½£¡";
@@ -25,7 +26,7 @@ function Add()
 <script>
   	function monitor(){
 		//window.open("../zabbix1/dashboard.php");
-		window.open("/zabbix");
+		window.open("http://192.168.1.225:8000/main/main");
 	}
   </script>
  </head>

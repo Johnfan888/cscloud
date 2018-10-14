@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "尚未登陆！";
@@ -25,10 +26,10 @@ function close_window()
 }
 </script>
 </HEAD><BODY LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" BGCOLOR="#FFFFFF">
-<?php echo '欢迎光临！'.$_SESSION['name']; echo"   <a href=\"loginout.php\">退出系统</a>";?>
+<?php echo 'welcome  '.$_SESSION['name']; echo"   <a href=\"loginout.php\">退出系统</a>";?>
 <TR>
     <Td width="967" valign="top"> 
-      <table cellpadding="0" cellspacing="0" width="100%" height="108"><Td width="780" height="108" valign="top"><img src="images/topbar.jpg" width="100%" height="108"></Td></table>
+      <table cellpadding="0" cellspacing="0" width="100%" height="108"><Td width="780" height="108" valign="top"><img src="images/log.png" width="100%" height="108"></Td></table>
   </head>   
 
 <body>
@@ -105,12 +106,10 @@ echo "</div>";
     <td><hr size=1 color=#000000 width='60%' align=center></td>
   </tr>
   <tr>
-    <td align=center>Copyright  &copy;  2010 , All Rights Reserved 
 
 .</td>
   </tr>
   <tr>
-    <td align=center>E-mail: echo0104@126.com </td>
   </tr>
 </table>
 </body>

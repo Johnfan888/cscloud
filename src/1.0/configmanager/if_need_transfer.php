@@ -1,4 +1,5 @@
 <?php 
+	header('Content-Type:text/html;charset=gb2312');
 	require("conn/conn.php");
 	require("Transfer_strategy.php");
 	require_once('/srv/www/htdocs/configmanager/sendmail/socketsendmail.php');

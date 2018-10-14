@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	header('Content-Type:text/html;charset=gb2312');
 	if($_SESSION['name']=="")
 	{
 	echo "尚未登陆！";
@@ -13,149 +14,131 @@ $sql="select * from ip_table where ip_address='".$ip."'";
 $result=mysql_query($sql,$conne->getconnect());
 $menu=mysql_fetch_array($result);
 ?>
-<html>
-<head>
-	<title>修改服务器信息</title>
-<script language="javascript" type="text/javascript"> 
-function Returnback()
-{
-    location.href='configserver.php'; 
-}
-</script>
-	<link href="styles.css" rel="stylesheet" type="text/css" /> 
-<style type="text/css"> 
-/*body { 
-    font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
-    color: #4f6b72; 
-    background: #ffffff; 
-} */
-#mytable { 
-    width: 500px; 
-    padding: 0; 
-    margin: 0; 
-} 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>添加服务器</title>
+  <link href="css/common.css" type="text/css" rel="stylesheet" />
+  <link href="css/frame_main.css" type="text/css" rel="stylesheet" />
+  <link href="css/page_list.css" type="text/css" rel="stylesheet" />
+  <link href="css/page.css" type="text/css" rel="stylesheet" />
+  <script language="javascript" type="text/javascript"> 
+	function Returnback()
+	{
+		location.href='configserver.php'; 
+	}
+	</script>
+	<script>
+  	function monitor(){
+		//window.open("../zabbix1/dashboard.php");
+		window.open("/zabbix");
+	}
+  </script>
+ </head>
+<body>
+<!--header-->
+<div class="frame-header">
+	<ul class="user-menu">
+		<li class="">
+			<a href="loginout.php" class="menu-switch menu-arrow" id="js_page_client_tab"><span>退出</span></a>
+		</li>
+	</ul>
+</div>
+<!--content-->
+<div style="display: block; " id="js_frame_box">
+<!--left-->
+<div class="frame-side" id="js_side_main_box">
+	<div class="directory-menu" id="js_left_side_box">
+		<dl id="js_tree_box">
+			<dd>
+				<ul>
+					<li>
+						<a href="configserver.php"><i class="ico-dm dm-document"></i>服务器配置</a>
+					</li>
+					<li>
+						<a href="installserver.php"><i class="ico-dm dm-photo"></i>服务器安装</a>
+					</li>
+					<li>
+						<a href="minitoring.php"><i class="ico-dm dm-music"></i>监控服务器</a>
+					</li>
+					<li>
+						<a href="minitoritem.php"><i class="ico-dm dm-music"></i>snmp监控项</a>
+					</li>
+					<li>
+						<a onclick="monitor()"><i class="ico-dm dm-music"></i>监控系统</a>
+					</li>
+					<li>
+						<a href="showuser.php"><i class="ico-dm dm-video"></i>用户管理</a>
+					</li>
+					<li>
+						<a href="loginout.php"><i class="ico-dm dm-sync"></i>退出系统</a>
+					</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+</div>
+<!--right-->
+	<div class="frame-contents" id="js_frame_box">
+		<div class="page-contents">
+			<div class="page-main" id="js_cantain_box">
+				<div class="page-header">
+					<div class="operate-panel" id="js_top_bar_box">
+						<div class="opt-button">
+						
+						</div>
+					<div class="opt-side">
+				</div>
+			</div>
+						<div class="directory-path">
+							<div class="path-contents" rel="page_local">
+							</div>
+						<div class="list-filter" id="js_fileter_box"><div class="list-refresh"></div></div>
+					</div>
+				  </div>
 
-caption { 
-    padding: 0 0 5px 0; 
-    width: 700px;      
-    font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
-    text-align: right; 
-} 
+					<div class="page-list" id="js_data_list_outer">
+						<div style="min-height:100%;_height:100%;cursor:default; background:#fff;" id="js_data_list">
+							<form action="add.php" method="post">
+								<table width="477" align="center" cellspacing="0"  id="mytable" summary="The technical specifications of the Apple PowerMac G5 series">
+								<tr>
+								<th width="178">ip</th>
+								<th width="316"><input type="text"  name="ipinfo" value="<?php echo $menu["ip_address"];?>" readonly="true" /></th>
+								</tr>
+								<tr>
+								<th>status</th><th><input type="text"  name="statusinfo"  value="<?php echo $menu["status"];?>"/></th>
+								</tr>
+								<tr>
+								<th>cpu</th><th><input type="text"  name="cpuinfo"  value="<?php echo $menu["cpu"];?>"/></th>
+								</tr>
+								<tr>
+								<th>memory</th><th><input type="text"  name="memoryinfo"  value="<?php echo $menu["memory"];?>"/></th>
+								</tr>
+								<tr>
+								<th>disk</th><th><input type="text"  name="diskinfo"  value="<?php echo $menu["disk"];?>"/></th>
+								</tr>
+								<tr>
+								<th>userfilepath</th><th><input type="text"  name="userfilepath"  value="<?php echo $menu["userfilepath"];?>"/>
+								</th>
+								</tr>
+								<tr>
+								<th>Post_size</th><th><input type="text"  name="postsize"  value="<?php echo $menu["post_size"]/1000000;?>"/></th>
+								</tr>
+								<tr>
+								
+								<td colspan="2"><input name="DT??" type="submit"  value="modify"/></td>
+								<td colspan="2"><input type="button" name="back" value="back" onClick="Returnback()"></td>
+								</tr>
+								</table>
 
-th { 
-    font: bold 12px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
-    color: #4f6b72; 
-	border-left: 1px solid #C1DAD7; 
-    border-right: 1px solid #C1DAD7; 
-    border-bottom: 1px solid #C1DAD7; 
-    border-top: 1px solid #C1DAD7; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    text-align: left; 
-    padding: 6px 6px 6px 12px; 
-    background: #CAE8EA url(images/bg_header.jpg) no-repeat; 
-} 
+								</form>
+						</div>
+					</div>
 
-th.nobg { 
-    border-top: 0; 
-    border-left: 0; 
-    border-right: 1px solid #C1DAD7; 
-    background: none; 
-} 
-
-/*td { 
-    border-left: 1px solid #C1DAD7; 
-    border-right: 1px solid #C1DAD7; 
-    border-bottom: 1px solid #C1DAD7; 
-    background: #fff; 
-    font-size:11px; 
-    padding: 6px 6px 6px 12px; 
-    color: #4f6b72; 
-} */
-
-
-td.alt { 
-    background: #F5FAFA; 
-    color: #797268; 
-} 
-
-.STYLE1 {
-	font-size: medium;
-	color: #000000;
-	font-weight: bold;
-}
-</style> 
-</head>
-
-<BODY LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" BGCOLOR="#FFFFFF">
-<?php echo '欢迎光临！'.$_SESSION['name']; echo"   <a href=\"loginout.php\">退出系统</a>"?>
-<TR>
-    <Td width="967" valign="top"> 
-      <table cellpadding="0" cellspacing="0" width="100%" height="108"><Td width="780" height="108" valign="top"><img src="images/topbar.jpg" width="100%" height="108"></Td></table>
-
-<table cellpadding="0" cellspacing="0" width="960">
-<Td width="170" valign="top">
-<img src="images/menutop.jpg" width="170" height="45"><a href="configserver.php"><img src="images/button-1.jpg" width="170" height="49" border="0"></a><a href="installserver.php"><img src="images/button-2.jpg" width="170" height="52" border="0"></a><a href="minitoring.php"><img src="images/button-3.jpg" width="170" height="54" border="0"></a><a href="showuser.php"><img src="images/button-4.jpg" width="170" height="52" border="0"></a><a href="loginout.php"><img src="images/button-5.jpg" width="170" height="55" border="0"></a><img src="images/mbtm.jpg" width="170" height="117" border="0">
-</Td>
-<Td width="788" valign="top">
-<table border=0 cellspacing=1 align=center class=Navi>
-  
-</table>
-<p><br>
-</p>
-<p ><center>
-  <span class="STYLE1">您要修改的服务器信息如下</span>
-</center></p>
-<table width="477" align="center" cellspacing="0"  id="mytable" summary="The technical specifications of the Apple PowerMac G5 series"> 
-<form action="modify.php" method="post">
-<tr>
-<th width="178">ip</th>
-<th width="316"><input type="text"  name="ipinfo" value="<?php echo $menu["ip_address"];?>" readonly="true" /></th>
-</tr>
-<tr>
-<th>status</th><th><input type="text"  name="statusinfo"  value="<?php echo $menu["status"];?>"/></th>
-</tr>
-<tr>
-<th>cpu</th><th><input type="text"  name="cpuinfo"  value="<?php echo $menu["cpu"];?>"/></th>
-</tr>
-<tr>
-<th>memory</th><th><input type="text"  name="memoryinfo"  value="<?php echo $menu["memory"];?>"/></th>
-</tr>
-<tr>
-<th>disk</th><th><input type="text"  name="diskinfo"  value="<?php echo $menu["disk"];?>"/></th>
-</tr>
-<tr>
-<th>userfilepath</th><th><input type="text"  name="userfilepath"  value="<?php echo $menu["userfilepath"];?>"/>
-  (以“/”开头和结束manager不需填写)</th>
-</tr>
-<tr>
-<th>Post_size(单位：M)</th><th><input type="text"  name="postsize"  value="<?php echo $menu["post_size"]/1000000;?>"/></th>
-</tr>
-<tr><td><input name="修改" type="submit"  value="修改"/></td><td><input type="button" name="back" value="返回" onClick="Returnback()"></td></tr>
-</form>
-</table>
-<table border=0 cellpadding=0 cellspacing=0 align=center width='100%'>
-  <tr>
-    <td height=40></td>
-  </tr>
-  <tr>
-    <td><hr size=1 color=#000000 width='60%' align=center></td>
-  </tr>
-  <tr>
-    <td align=center>Copyright  &copy;  2010 , All Rights Reserved 
-.</td>
-  </tr>
-  <tr>
-    <td align=center><span class="STYLE1">E-mail: echo0104@126.com </span></td>
-  </tr>
-</table>
-
-</Td>
-</table>
-
-
-    </td>
-  </TR>
-</table>
-</BODY>
+					<div class="page-footer"><div class="file-pages"></div></div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
 </html>
