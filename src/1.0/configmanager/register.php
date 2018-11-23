@@ -49,8 +49,7 @@
 	<div id="regrealnamediv"><b>真实姓名：</b><input id="realname" name="realname" type="text" /><div id="realnamediv">用户的真实姓名</div></div>
 	<div id="regbirthdaydiv"><b>出生日期：</b><input id="birthday" name="birthday" type="text" /><div id="birthdaydiv">用户的出生日期。格式：YYYY-MM-DD</div></div>
 	<div id="regtelephonediv"><b>联系电话：</b><input id="telephone" name="telephone" type="text" /><div id="telephonediv">用户的联系电话</div></div>
-	<div id="regqqdiv"><b>QQ号 码：</b>
-	  <input id="qq" name="qq" type="text" /><div id="qqdiv">用户QQ号</div></div>
+	<div id="regqqdiv"><b>QQ号 码：</b><input id="qq" name="qq" type="text" /><div id="qqdiv">用户QQ号</div></div>
   </div>
   	<div id="btndiv2">
   		<button id="regbtn" disabled="disabled">&nbsp;</button>

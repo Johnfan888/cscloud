@@ -16,7 +16,7 @@
   <div id="bgdiv">
     <div id="txtdiv1"><input id="lgname" name="lgname" type="text" class="txt"/></div>
 	<div id="txtdiv2"><input id="lgpwd" name="lgpwd" type="password" class="txt"/></div>
-	<div id="txtdiv3"><input id="lgchk" type="text" maxlength="4" style="width:35px;"><img id='chkid' src=""/><a id="changea">Modify</a></div>
+	<div id="txtdiv3"><input id="lgchk" type="text" maxlength="4" style="width:37px;"><img id='chkid' src=""/><a id="changea">Change</a></div>
 	<div id="btndiv" style="text-align:center">
 		<button id="lgbtn">&nbsp;</button>
 		<button id="rgbtn">&nbsp;</button>

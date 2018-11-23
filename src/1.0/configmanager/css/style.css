@@ -24,23 +24,23 @@ body,td,th{
 #txtdiv1{
 	position:relative;
 	top:276px;
-	left:7px;
+	left:576px;
 	width:135px;
 	height:18px;
 	text-align:left;
 }
 #txtdiv2{
 	position:relative;
-	top:282px;
-	left:7px;
+	top:288px;
+	left:576px;
 	height:18px;
 	width:135px;
 	text-align:left;
 }
 #txtdiv3{
 	position:relative;
-	top:287px;
-	left:7px;
+	top:300px;
+	left:576px;
 	height:18px;
 	width:135px;
 	text-align:left;
@@ -48,7 +48,7 @@ body,td,th{
 #btndiv{
 	position:relative;
 	top:318px;
-	left:-10px;
+	left:546px;
 	height:18px;
 	width:180px;
 	text-align:left;
@@ -99,21 +99,21 @@ body,td,th{
 #chkid{
 	position:relative;
 	width: 50px;
-	top: 0px;
-	left:2px;
+	top: 4px;
+	left:8px;
 	height: 18px;
 	border:0px;
 }
 #changea{
 	position:relative;
 	top:0px;
-	left:5px;
-	cursor: hand;
+	left:16px;
+	cursor:pointer;
 }
 #regimg{
 	position: relative;
 	top:340px;
-	left:0px;
+	left:526px;
 	height:30px;
 	width:245px;
 	background-image:url(../images/loading.gif);
@@ -123,42 +123,42 @@ body,td,th{
 /*	注册页面  */
 #rgbgdiv{
 	text-align: center;
-	background-image: url(../images/bg.gif);
+	background-image: url(../images/bgreg.gif);
 	background-position: top;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	width:830px;
-	height:756px;
+        width:1024px;
+        height:630px;
 	text-align: left;
 }
 #regnamediv{
 	position:relative;
 	top:265px;
-	left:250px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regpwddiv1{
 	position:relative;
-	top:265px;
-	left:250px;
+	top:269px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regpwddiv2{
 	position:relative;
-	top:265px;
-	left:250px;
+	top:273px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regemaildiv{
 	position:relative;
-	top:265px;
-	left:250px;
+	top:277px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
@@ -182,7 +182,7 @@ body,td,th{
 /*  分割符  */
 #part{
 	position:relative;
-	top:280px;
+	top:288px;
 	left:150px;
 	width:550px;
 	color:#f0f0f0;
@@ -190,63 +190,63 @@ body,td,th{
 /*  非必选信息  */
 #regquestiondiv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:296px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #reganswerdiv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:300px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regrealnamediv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:304px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regbirthdaydiv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:308px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regtelephonediv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:312px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #regqqdiv{
 	position:relative;
-	top:282px;
-	left:250px;
+	top:316px;
+	left:466px;
 	width:410px;
 	height:20px;
 	text-align:left;
 }
 #btndiv2{
 	position:relative;
-	top:320px;
-	left:314px;
+	top:332px;
+	left:546px;
 	height:20px;
 	width:179px;
 	text-align:left;
 }
 
 #regbtn{
-	position: absolute;
+	position:absolute;
 	top:0px;
 	left:0px;
 	height:20px;
@@ -257,7 +257,7 @@ body,td,th{
 	background-repeat:no-repeat;
 }
 #morebtn{
-	position: absolute;
+	position:absolute;
 	top:0px;
 	left:54px;
 	height:20px;
@@ -268,7 +268,7 @@ body,td,th{
 	background-repeat:no-repeat;
 }
 #logbtn{
-	position: absolute;
+	position:absolute;
 	top:0px;
 	left:121px;
 	height:20px;
@@ -279,9 +279,9 @@ body,td,th{
 	background-repeat:no-repeat;
 }
 #imgdiv{
-	position: relative;
+	position:relative;
 	top:340px;
-	left:285px;
+	left:526px;
 	height:30px;
 	width:245px;
 	background-image:url(../images/loading.gif);
@@ -313,10 +313,22 @@ body,td,th{
 	border:1px #000000 solid;
 }
 #foundnamediv{
-	position: relative;
+	position:relative;
 	top:20px;
 	left:50px;
-	width:170px;
+	width:200px;
+}
+#foundquestiondiv{
+	position:relative;
+	top:24px;
+	left:50px;
+	width:200px;
+}
+#foundanswerdiv{
+	position:relative;
+	top:28px;
+	left:50px;
+	width:200px;
 }
 #step1{
 	position: relative;
