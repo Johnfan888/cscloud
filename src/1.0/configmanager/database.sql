@@ -17,7 +17,7 @@ CREATE TABLE tb_member (
   count int(1) NOT NULL default '0',
   active boolean NOT NULL default '0',
   PRIMARY KEY  (id)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 
 INSERT INTO tb_member VALUES (57,'admin','e10adc3949ba59abbe56e057f20f883e','','','162161518@qq.com','','0000-00-00','','',0,1);
 
@@ -34,7 +34,7 @@ loading float,
 transfer_status boolean,
 install_flag boolean default 0,
 PRIMARY KEY  (id)
-)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 
 /*-----------*/
 CREATE TABLE spare_node(
@@ -50,7 +50,7 @@ loading float,
 transfer_status boolean,
 install_flag boolean default 0,
 PRIMARY KEY  (id)
-)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 /*-----------*/
 
 CREATE TABLE log_transfer(
@@ -59,14 +59,14 @@ source_ip varchar(15) NOT NULL,
 target_ip varchar(15) NOT NULL,
 time varchar(20) NOT NULL,
 PRIMARY KEY  (id)
-)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 
 CREATE TABLE QUEUE(
 ID INT(4) NOT NULL auto_increment,
 QUEUENAME VARCHAR(20) NOT NULL,
 STATUS boolean NOT NULL DEFAULT '0',
 PRIMARY KEY  (ID)
-)ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gb2312;
 
 INSERT INTO QUEUE(QUEUENAME,STATUS) VALUES('TRANSFER','0');
 

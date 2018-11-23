@@ -102,7 +102,7 @@ else{
 						}
 					   else
 					   {
-							$sql="insert into ".$table." values('','".$add_ip."','manager','".$cpu."','".$memory."','".$disk."','".$userfilepath."','".$post_size."','','','0')";
+							$sql="insert into ".$table." values(NULL,'".$add_ip."','manager','".$cpu."','".$memory."','".$disk."','".$userfilepath."','".$post_size."',NULL,NULL,'0')";
 						  mysql_query($sql,$conne->getconnect());
 						  //echo "2";
 						  echo"<script language='javascript'>if(confirm('添加成功，请返回！')){location.href='configserver.php';}else{location.href='configserver.php';}</script>";
@@ -110,7 +110,7 @@ else{
 				}
 				else
 				{
-					 $sql="insert into ".$table." values('','".$add_ip."','".$status."','".$cpu."','".$memory."','".$disk."','".$userfilepath."','".$post_size."','','','0')";
+					 $sql="insert into ".$table." values(NULL,'".$add_ip."','".$status."','".$cpu."','".$memory."','".$disk."','".$userfilepath."','".$post_size."',NULL,NULL,'0')";
 					  mysql_query($sql,$conne->getconnect());
 					 //echo"3";
 						  echo"<script language='javascript'>if(confirm('添加成功，请返回！')){location.href='configserver.php';}else{location.href='configserver.php';}</script>";
