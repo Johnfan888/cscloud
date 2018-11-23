@@ -24,7 +24,7 @@ cleanup()
 {
 	echo "cleaning up ..."
 	rm -rf $INSTALL_DIR
-	rm -rf $AD_DESTDIR/*
+	rm -rf $AD_DESTDIR
 	exit 20
 }
 
@@ -83,8 +83,10 @@ fi
 cd $INSTALL_DIR
 
 # For single NIC
-file=`find /etc/sysconfig/network-scripts -name ifcfg-ens*`
-adip=`grep ^IPADDR $file | awk -F '=' '{print $2}'`
+
+adip=`ip addr | grep "inet .* brd" | awk '{print $2}' | awk -F/ '{print $1}'`
+#file=`find /etc/sysconfig/network-scripts -name ifcfg-ens*`
+#adip=`grep ^IPADDR $file | awk -F '=' '{print $2}'`
 
 echo "Successfully, please enter admin website with $adip"
 
