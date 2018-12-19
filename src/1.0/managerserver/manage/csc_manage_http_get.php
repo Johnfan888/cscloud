@@ -23,6 +23,17 @@ $password = "do not auth"; //FIXME may need to authenticate user
 $version = "do not support";	//TODO may not need for ingesting via fs API
 $managerserverip = $_SERVER['SERVER_ADDR'];
 
+//xjl_2018.12.17---get user
+
+$sql="select user_id from T_FileInfo where file_name='$filename'";
+$userid=$db->FetchAssocOne($sql);
+$userid=$userid['user_id'];
+
+$sql="select email from T_User where user_id='$userid'";
+$email=$db->FetchAssocOne($sql);
+$user=$email['email'];
+
+
 //Get user_id from table members if exists
 $sql = "select user_id from T_User where email ='$user'";
 $filenum = $db->NumRows($sql);

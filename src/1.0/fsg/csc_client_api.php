@@ -3,7 +3,7 @@
  * RESTFUL APIs for client 
  * author: zfan
  */
-
+//sleep(2);
 $method=$argv[1];
 $filename=$argv[2];
 $user=$argv[3];
@@ -14,7 +14,7 @@ $ms_ip=$argv[4];
 //$ms_ip="192.168.1.110";
 
 //Curl POST Call
-function curlPost($url,$data,$isJSON=true,$timeout=60)
+function curlPost($url,$data,$isJSON=true,$timeout=300)
 {
         $ch = curl_init();
         $curl_opts[CURLOPT_URL] = $url;
@@ -39,7 +39,7 @@ function curlPost($url,$data,$isJSON=true,$timeout=60)
 }
 
 //download file from file server
-function downloadFile($url, $file="", $data="", $timeout=60)
+function downloadFile($url, $file="", $data="", $timeout=300)
 {
 	$file = empty($file) ? pathinfo($url,PATHINFO_BASENAME) : $file;
 	$dir = pathinfo($file,PATHINFO_DIRNAME);
@@ -135,11 +135,12 @@ if($method == "Put")
 		"replicapath" => $json['replicapath'],
 		"managerserverip" => $json['managerserverip'],
 		"key" => $json['key'],
-		//"file" => new CURLFile("{$json['filename']}"),//For php version 5.5.16 or above
-		'file' => "@{$json['filename']}",// For php version 5.2.6 (default in sles11sp1)
+		"file" => new CURLFile("{$json['filename']}"),    //For php version 5.5.16 or above
+		//'file' => "@{$json['filename']}",          // For php version 5.2.6 (default in sles11sp1)
 		"totalsize" => $json['totalsize'],
 		"usedsize" => $json['usedsize']);
 	$json = curlPost($url,$data,true);
+	//echo $json;
 	if($json['result'])
 	{
 		echo "File {$json['filename']} with ID {$json['file_id']} PUT Succeed!\n";
@@ -239,4 +240,30 @@ if($method == "Delete")
 		echo "File {$json['filename']} with ID {$json['file_id']} DELETE Failed!\n";
 	}
 }
+
+
+if($method == "Post")
+{
+    $filename_new=$argv[5];
+	$url="http://".$ms_ip."/manage/csc_manage_http_post.php?method=Post&user=".$user."&filename=".$filename."&filename_new=".$filename_new;
+	$ch=curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$result=curl_exec($ch);
+	curl_close($ch);
+	$json=json_decode($result, true);
+	if($json['update_status'] == 1)
+	{
+		echo "File {$json['filename']} with ID {$json['file_id']} renamed as {$json['filename_new']} Post Succeed!\n";
+	}
+	else
+	{
+		echo "File {$json['filename']} with ID {$json['file_id']} renamed as {$json['filename_new']} Post Failed!\n";
+	}
+}
+
+
+
+
+
 ?>

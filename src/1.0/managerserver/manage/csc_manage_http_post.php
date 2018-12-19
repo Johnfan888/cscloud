@@ -1,7 +1,7 @@
 <?php
 /*
-* MS RESTFUL API - PUT
-* author: zfan
+* MS RESTFUL API - POST
+* author: xjl
 */
 
 require("../includes/init.inc.php");
@@ -17,25 +17,30 @@ $key = $c->_get("Password");
 
 //GET
 $method = $_GET['method'];
-$user = $_GET['user'];	// may use for lookup per user in future 
-$filename = $_GET['filename'];
+$user = $_GET['user'];	
+$filename = $_GET['filename'];#旧名字
+$filename_new=$_GET['filename_new'];#新名字
 $file_id="none";
+
 
 $password="do not auth"; //FIXME may need to authenticate user
 $managerserverip = $_SERVER['SERVER_ADDR'];
 $totalsize = "unlimited";	//FIXME may need to limit for adm user?
 $usedsize = "do not care";	//FIXME may need to return to adm user client?
+
 //xjl_2018.12.4---get user
-// $sql="select user_id from T_FileInfo where file_name='$filename'";
-// $userid=$db->FetchAssocOne($sql);
-// $useridnum=$db->NumRows($sql);//返回数据库中的行数
-// if ($useridnum > 0)
-// {	$userid=$userid['user_id'];
-// 	$sql="select email from T_User where user_id='$userid'";
-// 	$email=$db->FetchAssocOne($sql);
-// 	$user=$email['email'];
-// }
-//Get user_id from table members if exists
+
+$sql="select user_id from T_FileInfo where file_name='$filename'";
+$userid=$db->FetchAssocOne($sql);
+$userid=$userid['user_id'];
+
+$sql="select email from T_User where user_id='$userid'";
+$email=$db->FetchAssocOne($sql);
+$user=$email['email'];
+
+
+
+
 $sql = "select user_id from T_User where email ='$user'";
 $filenum=$db->NumRows($sql);//返回数据库中的行数
 if($filenum > 0)	//user found
@@ -56,6 +61,7 @@ if($filenum > 0)	//user found
 		$sql3="select file_path from T_Server where server_ip='".$replicaip."'";
 		$replicapath=$db->FetchAssocOne($sql3);
 		$replicapath=$replicapath['file_path'];
+		
 		$sql4="select file_id from T_FileInfo where file_name='$filename'";
 		$num=$db->NumRows($sql4);
 		if($num>0)
@@ -74,6 +80,17 @@ if($filenum > 0)	//user found
 			$sql5="select version from T_FileInfo where file_name='$filename'";
 			$version=$db->FetchAssocOne($sql5);
 			$version=$version['version'];
+		#-------------------元数据：name
+			$sql6="update T_FileInfo SET file_name='$filename_new' WHERE file_id='$file_id'";
+			$db=$db->Query($sql6);
+			if ($db) {
+				$updatestatus=1;
+			}
+			else{
+				$updatestatus=0;
+			}
+
+		#-------------------------------		
 		}
 		else
 		{
@@ -108,6 +125,8 @@ if($filenum > 0)	//user found
 		"managerserverip" => $managerserverip,
 		"userid" => $userid,
 		"filename" => $filename,
+		"filename_new" => $filename_new,
+		"update_status" => $updatestatus,
 		"file_id" => $file_id,
 		"version" => $version,
 		"totalsize" => $totalsize,
@@ -122,4 +141,5 @@ else //user not found
 	echo json_encode($result);
 }
 ?>
+
 
