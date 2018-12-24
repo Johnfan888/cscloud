@@ -124,49 +124,11 @@ class EventHandler(pyinotify.ProcessEvent):
     def move(self, filename):
         time.sleep(0.5)  # 等待move_to
         if self.to == 1:  # 下一次事件是move_to的话会触发
-            print  "对比", filename, self.filename_new
-            logging.info("对比 %s %s %s" % (filename, self.filename_new, datetime.datetime.now()))
-            old_data = {'method': "Get", 'filename': filename, 'item_event': "下载文件"}
-            api_output = exec_api(old_data)  # 下载旧文件
-            if api_output == 1:
-                MV_status, MV_output = commands.getstatusoutput(
-                    "diff '%s' '%s' > /dev/null" % (filename, self.filename_new))
-                if MV_status == 0:
-                    if MV_output == "":
-                        print "一样"
-                        rename_data = {'method': "Post", 'filename': filename, 'item_event': '改名',
+            print  "改名", filename, self.filename_new
+            rename_data = {'method': "Post", 'filename': filename, 'item_event': '改名',
                                        'filename_new': self.filename_new}
-                        # print rename_data
-                        exec_api(rename_data)  # post|rename
-                        logging.info("改名 %s %s %s" % (filename, self.filename_new, datetime.datetime.now()))
-                        if filename == "/":
-                            print "系统出错"
-                            return
-                        exec_status, exec_status = commands.getstatusoutput(
-                            "rm '%s' -f " % (filename))
-                else:
-                    print "不一样"
-                    # old_data = {'method': "Delete", 'filename': filename, 'item_event': '移动走文件'}
-                    # exec_api(old_data)  # 删除旧的
-                    if filename == "/":
-                        print "系统出错"
-                        return
-                    exec_status, exec_status = commands.getstatusoutput(
-                        "rm '%s' -f " % (filename))
-                    # 创建新的
-                    data = {'method': "Put", 'filename': self.filename_new, 'item_event': '移动来文件',
-                            'oid': self.obs[self.n]}
-                    self.select_oid(data)#创建
-                    # else:
-                    #     print"对比文件失败"
-
-            else:
-                print "get失败"
-            self.to = None
-        else:
-            print "删除文件"
-            old_data = {'method': "Delete", 'filename': filename, 'item_event': '移动走文件'}
-            exec_api(old_data)  # 删除旧的
+            exec_api(rename_data)  # post|rename
+            logging.info("改名 %s %s %s" % (filename, self.filename_new, datetime.datetime.now()))
         self.t = None
 
     # 创建中

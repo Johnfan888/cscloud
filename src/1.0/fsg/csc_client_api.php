@@ -41,8 +41,16 @@ function curlPost($url,$data,$isJSON=true,$timeout=300)
 //download file from file server
 function downloadFile($url, $file="", $data="", $timeout=300)
 {
+	
 	$file = empty($file) ? pathinfo($url,PATHINFO_BASENAME) : $file;
 	$dir = pathinfo($file,PATHINFO_DIRNAME);
+	// // echo $file;#此处的文件名是编码后的
+
+	$file_url=$file;#114行需要返回一个编码的
+    $file=$data['filename'];#获取到的是正常的
+
+
+
 	!is_dir($dir) && @mkdir($dir,0755,true);
 	$url = str_replace(" ","%20",$url);
 	
@@ -102,7 +110,8 @@ function downloadFile($url, $file="", $data="", $timeout=300)
 		}
 		else
 		{
-			return $file;
+			return $file_url;
+			// return $file;
 		}
 	}
 	else
@@ -154,6 +163,7 @@ if($method == "Put")
 if($method == "Get")
 {
 	$url="http://".$ms_ip."/manage/csc_manage_http_get.php?method=Get&user=".$user."&filename=".$filename;
+	// echo $url;
 	$ch=curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -165,6 +175,7 @@ if($method == "Get")
 		echo "User $user file $filename GET Failed! status:{$json['status']}\n";
 		exit;
 	}
+	// echo $json['filename'];
 	
 	$fileserverip=$json['fileserverip'];
 	$urlPOST = "http://{$fileserverip}/www/csc_fileserver_http_get.php";
@@ -178,6 +189,7 @@ if($method == "Get")
 		"version" => $json['version'],
 		"managerserverip" => $json['managerserverip'],
 		"key" => $json['key']);
+	// print_r($data);
 	if(downloadFile($urlPOST, $filename, $data) == $filename)
 	{
 		echo "File {$json['filename']} with ID {$json['file_id']} GET Succeed!\n";
