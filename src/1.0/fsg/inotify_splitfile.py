@@ -20,11 +20,12 @@ obs = cf.get('csc', 'obs')
 obs = obs.split(',')
 ms_ip = cf.get('csc', 'ms_ip')
 pool = int(cf.get('csc', 'pool'))
+small_size = int(cf.get('csc', 'smallfile_size'))
 
 
 filename = sys.argv[1]
-small_size = int(sys.argv[2])
-file_size = int(sys.argv[3])
+# small_size = int(sys.argv[2])
+file_size = int(sys.argv[2])
 
 filepath,fullflname = os.path.split(filename)
 fname,ext = os.path.splitext(fullflname)
@@ -57,7 +58,7 @@ def count():
     c=a%len(obs)#剩下几个，做指定oid
     return a,b,c
 
-
+#获取所有切分文件名
 def filename_small():
     EX_status, EX_output = commands.getstatusoutput(
         "readlink -f %s/%s/*" % (filepath, fname))
