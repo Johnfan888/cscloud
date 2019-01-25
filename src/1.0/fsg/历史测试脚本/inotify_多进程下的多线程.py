@@ -88,13 +88,11 @@ class EventHandler(ProcessEvent):
                     MODIFY_status, MODIFY_output = commands.getstatusoutput(
                         "getfattr -n user.event  %s" % (self.filename))
                     if MODIFY_status == 0:
-
                         self.exec_api(event)
                         MODIFY1_status, MODIFY1_output = commands.getstatusoutput(
                             "setfattr -n user.event -v 'modify' %s" % (self.filename))
                         if MODIFY1_status == 0:
                             print "属性标记为：modify"
-
                     else:
                         print "没有此文件"
 

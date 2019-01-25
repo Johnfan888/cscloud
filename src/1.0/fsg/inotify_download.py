@@ -30,7 +30,7 @@ if status == 0:
         "setfattr -n user.event -v 'downloaded' '%s'" % (filename))
     if DL_status == 0:
         print "下载文件，属性标记为：downloaded"
-    logging.info("上传结束 %s %s %s" % (filename, output, datetime.datetime.now()))
+    logging.info("下载结束 %s %s %s" % (filename, output, datetime.datetime.now()))
 else:
     print "下载失败"
     logging.info("上传失败 %s %s %s" % (filename, output, datetime.datetime.now()))

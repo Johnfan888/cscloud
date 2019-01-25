@@ -11,11 +11,11 @@ import urllib
 logging.basicConfig(level=logging.INFO, filename='/var/log/csc/cscfsg_modify.log')  # 日志目录
 
 
-method = sys.argv[1]
-filename = sys.argv[2]
-item_event = sys.argv[3]
-ms_ip = sys.argv[4]
-
+# method = sys.argv[1]
+filename = sys.argv[1]
+item_event = sys.argv[2]
+ms_ip = sys.argv[3]
+method="Put"
 oid_status, oid_output = commands.getstatusoutput(
     "getfattr -n user.oid  '%s' --only-values  --absolute-names" % (filename))
 if oid_status == 0:

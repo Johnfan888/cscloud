@@ -7,12 +7,13 @@ import commands
 import logging
 import datetime
 import multiprocessing
+# 导入配置文件
+import ConfigParser
 import urllib
 import time
 import threading
 import json
-# 导入配置文件
-import ConfigParser
+
 cf = ConfigParser.ConfigParser()
 cf.read('/csc/csc.conf')
 
@@ -24,11 +25,24 @@ FSMonitor_path = cf.get('path', 'FSMonitor')
 size = int(cf.get('csc', 'size'))
 small_size = cf.get('csc', 'smallfile_size')
 
+dddd = "132"
+
+
+# 选择oid
+# def select_oid(data):
+#     global n
+#     data.update({'oid': obs[n]})  # 追加oid到data的dict中
+#     spool.apply_async(func=exec_api, args=(data,))  # 加入池
+#     # hh=multiprocessing.Process(target=exec_api,args=(data,))
+#     # hh.start()
+#     n += 1
+#     if n > (len(obs) - 1):
+#         n = 0
+#     print " -------------------------------- "
 
 
 # 定制化事件处理类
 class EventHandler(pyinotify.ProcessEvent):
-
     logging.basicConfig(level=logging.INFO, filename='/var/log/csc/cscfsg.log')  # 日志目录
     logging.info("Starting monitor...")
 
@@ -38,8 +52,8 @@ class EventHandler(pyinotify.ProcessEvent):
         self.to = None  # 判断mv来事件是否存在
         self.size = size
         self.small_size = small_size
-        # self.n = 0  # 选择oid
-        # self.pool = multiprocessing.Pool(processes=pool)  # 设置进程池的大小
+        self.n = 0  # 选择oid
+        self.spool = multiprocessing.Pool(processes=pool)  # 设置进程池的大小
 
     # 删除
     def process_IN_DELETE(self, event):
@@ -122,15 +136,14 @@ class EventHandler(pyinotify.ProcessEvent):
                     print "不创建"
                     self.t.join()  # 阻塞程序，整个监控都会等待move的操作
             else:
-                method = "Create"
+                method = "Put"
                 item_event = "文件已移动来"
                 data_to = {'item_event': item_event, 'filename': filename}
                 print json.dumps(data_to, encoding="UTF-8", ensure_ascii=False)
                 logging.info("%s %s %s" % (filename, item_event, datetime.datetime.now()))
                 print "创建文件"
-                # data = {'method': method, 'filename': filename, 'item_event': item_event, 'oid': self.obs[self.n]}
-                data = {'method': method, 'filename': filename, 'item_event': item_event}
-                exec_api(data)  # 创建
+                data = {'method': method, 'filename': filename, 'item_event': item_event, 'oid': self.obs[self.n]}
+                self.select_oid(data)  # 创建
             self.to = None
 
     # 自定义，用于rename，关联-文件移走|文件移来
@@ -156,14 +169,12 @@ class EventHandler(pyinotify.ProcessEvent):
                     CR_status, CR_output = commands.getstatusoutput(
                         "getfattr -n user.event  '%s' --only-values  --absolute-names" % (filename))
                     # if CR_status == 0:
-                    # print CR_output
-                    if CR_output == "downloaded" or CR_output  == "splited" or CR_output  == "created":
-                        # print CR_output
+                    if CR_output == "downloaded":
                         return
                     else:
-                        CR1_status, CR1_output = commands.getstatusoutput(
+                        CR_status, CR_output = commands.getstatusoutput(
                             "setfattr -n user.event -v 'creating' '%s'" % (filename))
-                        if CR1_status == 0:
+                        if CR_status == 0:
                             print "文件正在创建，属性标记为：creating"
                             logging.info(
                                 "文件正在创建，属性标记为：creating %s %s %s" % (filename, item_event, datetime.datetime.now()))
@@ -178,17 +189,10 @@ class EventHandler(pyinotify.ProcessEvent):
         item_event = "创建完成"
         logging.info("%s %s %s" % (filename, item_event, datetime.datetime.now()))
         data = {'method': method, 'filename': filename,'item_event':item_event}
-        # exec_api(data)
-        multiprocessing.Process(target=exec_api,args=(data,)).start()
-        # self.pool.apply_async(func=exec_api, args=(data,))  # 加入池
-        # print item_event
-        # hh=multiprocessing.Process(target=exec_api,args=(data,))
-        # hh.start()
-        print "===================创建完成============================"
-
+        exec_api(data)
 
     # 文件访问
-    def process_INQ_ACCESS(self, event):
+    def process_IN_ACCESS(self, event):
         # method = "Put"
         filename = os.path.join(event.path, event.name)
         item_event = "文件访问"
@@ -202,7 +206,7 @@ class EventHandler(pyinotify.ProcessEvent):
         print item_event, ":", filename
 
     # 文件被打开??
-    def process_INQ_OPEN(self, event):
+    def process_IN_OPEN(self, event):
         # method = "Put"
         filename = os.path.join(event.path, event.name)
         item_event = "文件被打开"
@@ -285,14 +289,9 @@ class EventHandler(pyinotify.ProcessEvent):
         filename = os.path.join(event.path, event.name)
         item_event = "IN_DELETE_SELF"
         print item_event, ":", filename
-#
-# def aa(data):
-#         time.sleep(10)
-#         print "2222222222222222222222222222"
+
 
 def exec_api(data):
-
-    print "================执行api======================"
     method = data['method']
     # print method,type(method)
     # 删除
@@ -326,6 +325,24 @@ def exec_api(data):
             "python /csc/inotify_rename.py '%s' '%s' '%s' '%s' '%s' " % (
                 method, data['filename'], data['item_event'], data['filename_new'], ms_ip))
 
+    # 切分大文件
+    # elif method == "Split":
+    #     # print "1111"
+    #     EXEC_status, EXEC_output = commands.getstatusoutput(
+    #         "python /csc/inotify_splitfile.py '%s' '%s' " % (
+    #             data['filename'], data['small_size']))
+    #
+    # # 选择oid上传
+    # elif method == "Oid":
+    #     # print "1111"
+    #     EXEC_status, EXEC_output = commands.getstatusoutput(
+    #         "python /csc/inotify_selectoid.py '%s' '%s' '%s' '%s'" % (
+    #             method, data['filename'], data['item_event'], data['number']))
+    # 区分
+    # elif method == "QF":
+    #     EXEC_status, EXEC_output = commands.getstatusoutput(
+    #         "python /csc/inotify_differentiatefile.py '%s' '%s' '%s'" % (
+    #                 method, data['filename'],data['item_event']))
 
     print EXEC_output
 
