@@ -21,7 +21,7 @@ obs = obs.split(',')
 ms_ip = cf.get('csc', 'ms_ip')
 pool = int(cf.get('csc', 'pool'))
 small_size = int(cf.get('csc', 'smallfile_size'))
-
+limit_oid_big = int(cf.get('csc', 'limit_oid'))
 
 
 #拆分大文件，并标注
@@ -65,53 +65,146 @@ def filename_small():
 def select():
     q=count()#得到a,b,c（文件总数，轮询几次，剩下几个文件）
     print q
-
-    #轮询添加
-    k=0
-    # for i in range(q[1]):
-    for i in range(q[1]):#q[1]从1开始算，故for中减1
-        # print i
-        for j in DS:
-            # print str(j[0])
-            user_id=inotify_getcsc.getDSUser(str(j[0]))#根据ip取得所有user_id
-            # print user_id
-            try:
-                if user_id[i]:
-                    oid=inotify_getcsc.getOid(user_id[i])
-
-            except:#oid不够了注册一个
-                ha_server_ip= DS[DS.index(j)-1]  #取当前ip的上一个ip作为副本文件服务器
-                # print str(j[0])
-                # print str(ha_server_ip[0])
-                EXEC_status, EXEC_output = commands.getstatusoutput(
-                    "php /csc/csc_client_api_register.php 'create' '1' '%s' '%s' '%s'  " % (
-                        ms_ip,str(j[0]),str(ha_server_ip[0]) ))
-                if EXEC_status == 0:
-                    # print EXEC_output,type(EXEC_output)
-                    p1 = r"[0-9]*@+.*"  # 我想匹配到@后面一直到“.”之间的，在这里是hit
-                    pattern1 = re.compile(p1)
-                    oid_register= pattern1.findall(EXEC_output)
-                    print oid_register[0],type(oid)
-                    data = {'method': "Put", 'item_event': "创建", 'filename': filename_s[k], 'oid': oid_register[0],
-                            'type': "big"}
+    p=q[1]#轮询次数
+    k=0#读取切分后文件名所用（文件名是一次读取，存在list中）
+    while p>=0:
+        if p >= limit_oid_big:#轮询次数大于上限
+            n=limit_oid_big       #取上限的值
+        else:
+            n=p  #取剩下几次轮询的值
+        for i in range(n):
+                print "=============%s==============="%(i)
+                for j in DS:
+                    # if m <= limit_oid_big:
+                    # print str(j[0])
+                    user_id = inotify_getcsc.getDSUser(str(j[0]))  # 根据ip取得此DS的所有user_id
+                    # print user_id
+                    try:
+                        if user_id[i]:
+                            oid = inotify_getcsc.getOid(user_id[i])
+                            oid=str(oid[0][0])
+                    except:  # oid不够了注册一个
+                        ha_server_ip = DS[DS.index(j) - 1]  # 取当前ip的上一个ip作为副本文件服务器
+                        # print str(j[0])
+                        # print str(ha_server_ip[0])
+                        EXEC_status, EXEC_output = commands.getstatusoutput(
+                            "php /csc/csc_client_api_register.php 'create' '1' '%s' '%s' '%s'  " % (
+                                ms_ip, str(j[0]), str(ha_server_ip[0])))
+                        if EXEC_status == 0:
+                            # print EXEC_output,type(EXEC_output)
+                            # 这是邮箱格式的匹配，后面需要改成32位二进制数字
+                            p1 = r"[0-9]*@+.*"  # 我想匹配到@后面一直到“.”之间的，在这里是hit
+                            pattern1 = re.compile(p1)
+                            oid_register = pattern1.findall(EXEC_output)
+                            oid=oid_register[0]
+                            # print oid_register[0], type(oid)
+                    data = {'method': "Put", 'item_event': "创建", 'filename': filename_s[k],
+                                    'oid': oid,'type': "big"}
                     print k
                     print data
                     spool.apply_async(func=exec_api, args=(data,))
                     print "===========切分上传==============="
                     k += 1
-            # print user_id[i],oid
+        p=p-limit_oid_big
 
-            # print filename_s[k],j
-            data={'method':"Put",'item_event':"创建",'filename':filename_s[k],'oid':str(oid[0][0]),'type':"big"}
-            print k
-            print data
-            # exec_api(data)
-            spool.apply_async(func=exec_api, args=(data,))
-            print "===========切分上传==============="
-            k += 1
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # #轮询添加
+    # k=0#读取切分后文件名所用（文件名是一次读取，存在list中）
+    # m=0#用作每个ds上oid上限计数
+    # # for i in range(q[1]):
+    # print "正常上传", q[1], limit_oid_big
+    # if q[1]<=limit_oid_big:#轮询没有超出上限
+    #     print "正常上传", q[1], limit_oid_big
+    #     for i in range(q[1]):#q[1]从1开始算，故for中减1
+    #         # print i
+    #         for j in DS:
+    #             # if m <= limit_oid_big:
+    #             # print str(j[0])
+    #             user_id=inotify_getcsc.getDSUser(str(j[0]))#根据ip取得此DS的所有user_id
+    #             # print user_id
+    #             try:
+    #                 if user_id[i]:
+    #                     oid=inotify_getcsc.getOid(user_id[i])
+    #
+    #             except:#oid不够了注册一个
+    #                 ha_server_ip= DS[DS.index(j)-1]  #取当前ip的上一个ip作为副本文件服务器
+    #                 # print str(j[0])
+    #                 # print str(ha_server_ip[0])
+    #                 EXEC_status, EXEC_output = commands.getstatusoutput(
+    #                     "php /csc/csc_client_api_register.php 'create' '1' '%s' '%s' '%s'  " % (
+    #                         ms_ip,str(j[0]),str(ha_server_ip[0]) ))
+    #                 if EXEC_status == 0:
+    #                     # print EXEC_output,type(EXEC_output)
+    #                     #这是邮箱格式的匹配，后面需要改成32位二进制数字
+    #                     p1 = r"[0-9]*@+.*"  # 我想匹配到@后面一直到“.”之间的，在这里是hit
+    #                     pattern1 = re.compile(p1)
+    #                     oid_register= pattern1.findall(EXEC_output)
+    #                     print oid_register[0],type(oid)
+    #                     data = {'method': "Put", 'item_event': "创建", 'filename': filename_s[k], 'oid': oid_register[0],
+    #                             'type': "big"}
+    #                     print k
+    #                     print data
+    #                     spool.apply_async(func=exec_api, args=(data,))
+    #                     print "===========切分上传==============="
+    #                     k += 1
+    #             # print user_id[i],oid
+    #             # print filename_s[k],j
+    #
+    # else:#轮询超出上限
+    #     m=q[1]-limit_oid_big#得出有几次轮询是从新开始的
+    #     for i in range(m):  # q[1]从1开始算，故for中减1
+    #         # print i
+    #         for j in DS:
+    #             # if m <= limit_oid_big:
+    #             # print str(j[0])
+    #             user_id = inotify_getcsc.getDSUser(str(j[0]))  # 根据ip取得此DS的所有user_id
+    #             # print user_id
+    #
+    #             oid = inotify_getcsc.getOid(user_id[i])#肯定存在
+    #             # print user_id[i],oid
+    #
+    #             # print filename_s[k],j
+    #         data = {'method': "Put", 'item_event': "创建", 'filename': filename_s[k], 'oid': str(oid[0][0]),
+    #                             'type': "big"}
+    #         print k
+    #         print data
+    #          # exec_api(data)
+    #         spool.apply_async(func=exec_api, args=(data,))
+    #         print "===========切分上传==============="
+    #         k += 1
+    #
+    #
 
     #指定添加
+
+
     DS_load=inotify_getcsc.getLoad()#获取所有ds和其负载
     print "-------------------------"
     for m in range(q[2]):
@@ -127,7 +220,7 @@ def select():
         print data
         spool.apply_async(func=exec_api, args=(data,))
         print "===========切分上传==============="
-
+        k+=1
 
 def exec_api(data):
     EX1_status, EX1_output = commands.getstatusoutput(
