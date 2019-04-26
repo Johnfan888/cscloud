@@ -12,12 +12,8 @@ import ConfigParser
 import os
 import multiprocessing
 
-cf = ConfigParser.ConfigParser()
-cf.read('/csc/csc.conf')
-size = int(cf.get('csc', 'size'))
-small_size = int(cf.get('csc', 'smallfile_size'))
-# obs = cf.get('csc', 'obs')
-# obs = obs.split(',')
+from inotify_conf import size,small_size
+
 
 # method = sys.argv[1]
 filename = sys.argv[1]
@@ -38,29 +34,29 @@ if CW_status == 0:
             # print type(DU_output),type(size)
             if int(DU_output) >= size:  # 大于100M为大文件
                 print "大文件"
-                data = {'method': 'Split', 'filename': filename, 'file_size': int(DU_output)}
-                # #不连数据库
+                # data = {'method': 'Split', 'filename': filename, 'file_size': int(DU_output)}
+                # 不连数据库
                 # CW1_status, CW1_output = commands.getstatusoutput(
                 #     "python /csc/inotify_splitfile.py '%s'  '%s'" % (
                 #         data['filename'],data['file_size']))
                 #连接数据库
                 CW1_status, CW1_output = commands.getstatusoutput(
-                    "python /csc/inotify_splitfile_db.py '%s'  '%s'" % (
-                        data['filename'], data['file_size']))
+                    "python /csc/inotify_splitfile.py '%s'  '%s'" % (
+                        filename, int(DU_output)))
                 print CW1_output
                 # exec_api(data)
                 # print SP_output
             else:
                 print "小文件"
-                data = {'method': 'Oid', 'filename': filename, 'item_event': item_event}  # number做轮询的计数
+                # data = {'method': 'Obs', 'filename': filename, 'item_event': item_event}  # number做轮询的计数
                 # #配置文件的轮询
                 # CW2_status, CW2_output = commands.getstatusoutput(
-                #     "python /csc/inotify_selectoid.py  '%s' '%s' " % (
+                #     "python /csc/inotify_selectobsid.py  '%s' '%s' " % (
                 #          data['filename'], data['item_event']))
                 #查询数据库的轮询
                 CW2_status, CW2_output = commands.getstatusoutput(
-                    "python /csc/inotify_selectoid_db.py  '%s' '%s' " % (
-                        data['filename'], data['item_event']))
+                    "python /csc/inotify_selectobsid.py  '%s' '%s' " % (
+                        filename, item_event))
                 print CW2_output
 
                 # select_oid(data)

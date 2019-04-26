@@ -16,21 +16,21 @@ filename = sys.argv[1]
 item_event = sys.argv[2]
 ms_ip = sys.argv[3]
 method="Put"
-oid_status, oid_output = commands.getstatusoutput(
-    "getfattr -n user.oid  '%s' --only-values  --absolute-names" % (filename))
-if oid_status == 0:
-    oid = oid_output
+obsid_status, obsid_output = commands.getstatusoutput(
+    "getfattr -n user.obsid  '%s' --only-values  --absolute-names" % (filename))
+if obsid_status == 0:
+    obsid = obsid_output
     # print oid
 else:
     print "获取oid出错"
     logging.info("获取oid出错 %s %s" % ( filename, datetime.datetime.now()))
 print item_event, ":", filename
-print "开始上传 上传参数:", method, filename, oid, ms_ip
+print "开始上传 上传参数:", method, filename, obsid, ms_ip
 logging.info("%s:%s %s" % (item_event, filename, datetime.datetime.now()))
 logging.info("开始上传 %s %s " % (filename, datetime.datetime.now()))
 status, output = commands.getstatusoutput(
     "php /csc/csc_client_api.php '%s' '%s' '%s' '%s'" % (
-        method, urllib.quote(filename), oid, ms_ip))  # urllib.quote(self.filename)
+        method, urllib.quote(filename), obsid, ms_ip))  # urllib.quote(self.filename)
 
 if status == 0:
     print "上传结束",output

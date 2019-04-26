@@ -13,20 +13,20 @@ method = sys.argv[1]
 filename = sys.argv[2]
 item_event = sys.argv[3]
 ms_ip = sys.argv[4]
-oid = sys.argv[5]
+obsid = sys.argv[5]
 file_type=sys.argv[6]
 
 logging.basicConfig(level=logging.INFO, filename='/var/log/csc/cscfsg_create.log')  # 日志目录
 print " +++++++++++++++++++上传+++++++++++++++++++++++ "
 
 print item_event, ":", filename
-print "开始上传 上传参数:", method, filename, oid, ms_ip
+print "开始上传 上传参数:", method, filename, obsid, ms_ip
 logging.info("%s:%s %s" % (item_event, filename, datetime.datetime.now()))
 logging.info("开始上传 %s %s " % (filename, datetime.datetime.now()))
 
 status, output = commands.getstatusoutput(
     "php /csc/csc_client_api.php '%s' '%s' '%s' '%s'" % (
-        method, urllib.quote(filename), oid, ms_ip))
+        method, urllib.quote(filename), obsid, ms_ip))
 if status == 0:
     print "上传结束", output
     logging.info("上传结束 %s %s %s" % (filename, output, datetime.datetime.now()))
@@ -37,10 +37,10 @@ if status == 0:
             print "属性标记为：created"
             logging.info("属性标记为：created %s %s" % (filename, datetime.datetime.now()))
     CR1_status, CR1_output = commands.getstatusoutput(
-        "setfattr -n user.oid -v '%s' '%s'" % (oid, filename))
+        "setfattr -n user.obsid -v '%s' '%s'" % (obsid, filename))
     if CR1_status == 0:
-        print "oid标记为：%s" % (oid)
-        logging.info("oid标记为：%s %s  %s" % (filename, oid, datetime.datetime.now()))
+        print "obsid标记为：%s" % (obsid)
+        logging.info("obsid标记为：%s %s  %s" % (filename, obsid, datetime.datetime.now()))
 else:
     print "上传失败"
     logging.info("上传失败 %s %s %s" % (filename, output, datetime.datetime.now()))

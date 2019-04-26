@@ -16,14 +16,14 @@ $ms_ip=$argv[4];
 //Curl POST Call
 function curlPost($url,$data,$isJSON=true,$timeout=300)
 {
-        $ch = curl_init();
+        $ch = curl_init();#初始化
         $curl_opts[CURLOPT_URL] = $url;
-        $curl_opts[CURLOPT_HEADER] = false;
-        $curl_opts[CURLOPT_RETURNTRANSFER] = true;
+        $curl_opts[CURLOPT_HEADER] = false;#获取响应的头信息
+        $curl_opts[CURLOPT_RETURNTRANSFER] = true;#获取的信息以文件流的形式返回，而不是直接输出。
         $curl_opts[CURLOPT_POST] = true;
         $curl_opts[CURLOPT_POSTFIELDS] = $data;
         $curl_opts[CURLOPT_TIMEOUT] = $timeout;
-        $curl_opts[CURLOPT_VERBOSE] = false;
+        $curl_opts[CURLOPT_VERBOSE] = false;#是否报告每一个意外信息
         curl_setopt_array($ch, $curl_opts);
         $result = curl_exec($ch);
         curl_close($ch);

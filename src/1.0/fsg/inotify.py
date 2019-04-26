@@ -12,17 +12,7 @@ import time
 import threading
 import json
 # 导入配置文件
-import ConfigParser
-cf = ConfigParser.ConfigParser()
-cf.read('/csc/csc.conf')
-
-ms_ip = cf.get('csc', 'ms_ip')
-obs = cf.get('csc', 'obs')
-obs = obs.split(',')
-pool = int(cf.get('csc', 'pool'))
-FSMonitor_path = cf.get('path', 'FSMonitor')
-size = int(cf.get('csc', 'size'))
-small_size = cf.get('csc', 'smallfile_size')
+from inotify_conf import ms_ip,pool,FSMonitor_path,size,small_size
 
 
 
@@ -84,7 +74,7 @@ class EventHandler(pyinotify.ProcessEvent):
                         # else:
                         #     print "文件存在,正在创建"
                     else:
-                        print "文件不存在，运行失败"
+                        # print "文件不存在，运行失败"
                         logging.info("文件不存在，运行失败 %s %s %s" % (filename, item_event, datetime.datetime.now()))
 
     # 属性修改
@@ -157,7 +147,8 @@ class EventHandler(pyinotify.ProcessEvent):
                         "getfattr -n user.event  '%s' --only-values  --absolute-names" % (filename))
                     # if CR_status == 0:
                     # print CR_output
-                    if CR_output == "downloaded" or CR_output  == "splited" or CR_output  == "created":
+                    # if CR_output == "downloaded" or CR_output  == "splited" or CR_output  == "created":
+                    if CR_output == "downloaded" or "_split" in filename or CR_output  == "created":
                         # print CR_output
                         return
                     else:
@@ -290,6 +281,8 @@ class EventHandler(pyinotify.ProcessEvent):
 #         time.sleep(10)
 #         print "2222222222222222222222222222"
 
+
+
 def exec_api(data):
 
     print "================执行api======================"
@@ -306,6 +299,8 @@ def exec_api(data):
         EXEC_status, EXEC_output = commands.getstatusoutput(
                 "python /csc/inotify_differentiatefile.py  '%s' '%s'" % (
                     data['filename'], data['item_event']))
+
+
     # 内容修改
     elif method == "Modify":
         EXEC_status, EXEC_output = commands.getstatusoutput(
@@ -377,4 +372,5 @@ def FSMonitor(path='.'):
 
 
 if __name__ == "__main__":
+
     FSMonitor(FSMonitor_path)  # 监控的目录
